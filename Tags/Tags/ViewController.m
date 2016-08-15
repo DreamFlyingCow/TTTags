@@ -115,7 +115,7 @@
 #pragma mark - 获取顾客标签的列表
 - (void)setData {
     
-    self.dataArr = [NSMutableArray arrayWithArray:@[@[@"1", @"22"], @[@"333", @"4444"], @[@"55555", @"666666"], @[@"1", @"22"], @[@"333", @"4444"], @[@"55555", @"666666"], @[@"1", @"22"], @[@"333", @"4444"], @[@"55555", @"666666"]]];
+    self.dataArr = [NSMutableArray arrayWithArray:@[@[@"1", @"22", @"哈哈", @"我是标签", @"我也可以换行"], @[@"333", @"4444"], @[@"55555", @"666666"], @[@"11", @"222"], @[@"3333", @"44444"], @[@"555555", @"6666666"], @[@"111", @"2222"], @[@"33333", @"444444"], @[@"5555555", @"66666666"]]];
     [self.tableView reloadData];
     
 }
@@ -367,7 +367,11 @@
         make.height.equalTo([NSNumber numberWithFloat:self.inputHeight]);
     }];
     
-    self.tableView.frame = CGRectMake(0, self.inputHeight, kScreenWidth, kScreenHeight - self.inputHeight - 64);
+    [UIView animateWithDuration:0.25 animations:^{
+        self.tableView.frame = CGRectMake(0, self.inputHeight, kScreenWidth, kScreenHeight - self.inputHeight - 64);
+    }];
+    
+    
     
 }
 
