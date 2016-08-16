@@ -486,9 +486,9 @@
         case TTTagView_Type_Edit:
         {
             [self becomeFirstResponder];
-            _editingTagIndex=[_tagButtons indexOfObject:tagButton];
-            CGRect buttonFrame=tagButton.frame;
-            buttonFrame.size.height-=5;
+            _editingTagIndex = [_tagButtons indexOfObject:tagButton];
+            CGRect buttonFrame = tagButton.frame;
+            buttonFrame.size.height -= 5;
             
             // 自定义UIMenuController(删除按钮)
             UIMenuController *menuController = [UIMenuController sharedMenuController];
@@ -501,14 +501,14 @@
             break;
         case TTTagView_Type_Selected:
         {
-            if (tagButton.selected) {
-                tagButton.selected = NO;
-            }else{
+//            if (tagButton.selected) {
+//                tagButton.selected = NO;
+//            } else {
                 for (TTCheckBoxButton *button in _tagButtons) {
                     button.selected = NO;
                 }
                 tagButton.selected = YES;
-            }
+//            }
         }
             break;
         default:
@@ -613,7 +613,9 @@
         [self.delegate deleteBtnClick:_tagStrings[_editingTagIndex]];
     }
     
-    [self removeTag:_tagStrings[_editingTagIndex]];
+    if (![_tfInput isEditing]) {
+        [self removeTag:_tagStrings[_editingTagIndex]];
+    }
 }
 
 - (BOOL)canPerformAction:(SEL)selector withSender:(id)sender {
@@ -646,7 +648,7 @@
 
 - (void)setType:(TTTagView_Type)type {
     
-    _type=type;
+    _type = type;
     switch (_type) {
         case TTTagView_Type_Edit:
         {
@@ -680,13 +682,6 @@
     [self layoutTagviews];
 }
 
-//- (void)setColorTagBg:(UIColor *)colorTagBg {
-//    
-//    _colorTagBg=colorTagBg;
-//    for (TTCheckBoxButton* button in _tagButtons) {
-//        button.colorBg=colorTagBg;
-//    }
-//}
 
 - (void)setBgColor:(UIColor *)bgColor {
     
