@@ -426,7 +426,7 @@
 - (void)addTags:(NSArray *)tags selectedTags:(NSArray*)selectedTags {
     
     [self addTags:tags];
-    self.tagStringsSelected=[NSMutableArray arrayWithArray:selectedTags];
+    self.tagStringsSelected = [NSMutableArray arrayWithArray:selectedTags];
 }
 
 - (void)addTagToLast:(NSString *)tag {
@@ -454,6 +454,7 @@
     }
     [self layoutTagviews];
 }
+
 #pragma mark - 删除标签
 - (void)removeTags:(NSArray *)tags {
     
@@ -472,6 +473,8 @@
         [_tagStrings removeObjectAtIndex:index];
         [_tagButtons[index] removeFromSuperview];
         [_tagButtons removeObjectAtIndex:index];
+        
+        [_svContainer scrollRectToVisible:CGRectMake(_svContainer.left, _svContainer.contentSize.height - 50, kScreenWidth, 50) animated:YES];
     }
     [self layoutTagviews];
 }

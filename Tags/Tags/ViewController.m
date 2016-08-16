@@ -316,7 +316,7 @@
     
 }
 
-#pragma mark - SMTagViewDelegate
+#pragma mark - TTGroupTagViewDelegate
 // 点击下边的固定标签列表, 对应上边的标签是删除还是添加(通过这个代理方法实现)
 - (void)buttonClick:(NSString *)string and:(BOOL)isDelete {
     
@@ -331,7 +331,7 @@
     }
 }
 
-#pragma mark - EYTagViewDelegate
+#pragma mark - TTTagViewDelegate
 // 点击上边的输入标签并且删除之后,看下边是否有对应的标签, 有的话就修改其状态
 - (void)deleteBtnClick:(NSString *)string {
     
