@@ -429,7 +429,7 @@
     self.tagStringsSelected=[NSMutableArray arrayWithArray:selectedTags];
 }
 
-- (void)addTagToLast:(NSString *)tag{
+- (void)addTagToLast:(NSString *)tag {
     NSArray *result = [_tagStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %@", tag]];
     if (result.count == 0) {
         [_tagStrings addObject:tag];
@@ -536,7 +536,7 @@
 }
 
 #pragma mark - 这里限制标签的字数为18
--(void)textFieldDidFinishChange:(UITextField*)textField{
+-(void)textFieldDidFinishChange:(UITextField*)textField {
     
     NSString *lang = [[textField textInputMode] primaryLanguage]; // 键盘输入模式
     if ([lang isEqualToString:@"zh-Hans"]) { // 简体中文输入，包括简体拼音，健体五笔，简体手写
@@ -597,21 +597,10 @@
     return YES;
 }
 
-
--(void)textFieldDidBeginEditing:(UITextField *)textField{
-    if ([_delegate conformsToProtocol:@protocol(UITextFieldDelegate)]
-        && [_delegate respondsToSelector:@selector(textFieldDidEndEditing:)]) {
-        [_delegate performSelector:@selector(textFieldDidBeginEditing:) withObject:textField];
-    }
-}
-
-
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     
-    if ([_delegate conformsToProtocol:@protocol(UITextFieldDelegate)]
-        && [_delegate respondsToSelector:@selector(textFieldDidEndEditing:)]) {
-        [_delegate performSelector:@selector(textFieldDidEndEditing:) withObject:textField];
-    }
+    [self textFieldShouldReturn:textField];
+    
 }
 
 #pragma mark UIMenuController
@@ -641,7 +630,6 @@
     if (self.selectedBtn != nil) {
         [self.selectedBtn setSelected:NO];
     }
-//    [self.selectedBtn setSelected:NO];
     [self textFieldShouldReturn:_tfInput];
 }
 

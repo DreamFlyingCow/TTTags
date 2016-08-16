@@ -394,6 +394,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
+    [inputTagView layoutTagviews];
     [inputTagView endEditing:YES];
 }
 
