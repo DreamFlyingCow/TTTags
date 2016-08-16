@@ -8,7 +8,8 @@
 
 #import "TTGroupTagView.h"
 
-@interface SMTagViewCheckBoxButton :UIButton
+@interface TTTagViewCheckBoxButton :UIButton
+
 @property (nonatomic, strong) UIColor* colorBg;
 @property (nonatomic, strong) UIColor* colorText;
 @property (strong, nonatomic) UIColor *borderColor;
@@ -20,7 +21,7 @@
 @end
 
 
-@implementation SMTagViewCheckBoxButton
+@implementation TTTagViewCheckBoxButton
 -(void)setSelected:(BOOL)selected{
     [super setSelected:selected];
     if (selected) {
@@ -43,13 +44,11 @@
 @end
 @implementation SMTextField
 
-// placeholder position
 // 设置占位文本的位置
 - (CGRect)textRectForBounds:(CGRect)bounds {
     return CGRectInset( bounds , 12.5 , 0 );
 }
 
-// text position
 // 设置文本的位置
 - (CGRect)editingRectForBounds:(CGRect)bounds {
     return CGRectInset( bounds , 12.5 , 0 );
@@ -58,7 +57,7 @@
 @end
 
 
-@interface TTGroupTagView()<UITextFieldDelegate>
+@interface TTGroupTagView()
 
 @property (nonatomic, strong) UIScrollView* svContainer;
 
@@ -69,17 +68,15 @@
 // 标记被选中的标签
 @property (nonatomic, strong) NSMutableArray *tagStringsSelected;
 
-
-
-//
-@property (nonatomic) UITapGestureRecognizer *gestureRecognizer;
-
 @end
 
 @interface TTGroupTagView ()
 
 // 当输入的文字过长时用来存储总长度的
 @property (assign, nonatomic) CGFloat currentMaxLength;
+/**
+ *  是否是第一行
+ */
 @property (assign, nonatomic) BOOL isFirst;
 
 
@@ -115,78 +112,64 @@
 {
     
     // 默认的标签宽度
-    _tagWidht= 80;
+    _tagWidht = 80;
     // 默认的标签高度
-    _tagHeight= 30;
+    _tagHeight = 30;
     // 第一个参数是左右两个标签之间的间隔  第二个参数是上下两个标签之间的间隔
-    _tagPaddingSize=CGSizeMake(10, 10);
+    _tagPaddingSize = CGSizeMake(10, 10);
     // 第一个参数表示标签内部text文本左右距离文本框的距离
-    _textPaddingSize=CGSizeMake(12.5, 0);
-    _fontTag=[UIFont systemFontOfSize:14];
-    _fontInput=[UIFont systemFontOfSize:14];
-    _colorTag=kColorRGB(0xffffff);
-    _colorInput=kColorRGB(0x2ab44e);
-    _colorInputPlaceholder=kColorRGB(0x2ab44e);
-    _colorTagBg=kColorRGB(0x2ab44e);
-    _colorInputBg=kColorRGB(0xbbbbbb);
-    _colorInputBoard=kColorRGB(0x2ab44e);
-    _viewMaxHeight= 100000;
-    self.backgroundColor=kColorRGB(0xffffff);
+    _textPaddingSize = CGSizeMake(12.5, 0);
+    _fontTag = [UIFont systemFontOfSize:14];
+    
+    _bgColor = kColorRGB(0x999999);
+    _selBgColor = kColorRGB(0xffffff);
+    _textColor = kColorRGB(0xcccccc);
+    _selTextColor = kColorRGB(0xffae00);
+    _borderColor = kColorRGB(0xffffff);
+    _selBorderColor = kColorRGB(0xffae00);
+    
+    
+    _viewMaxHeight = MAXFLOAT;
+    self.backgroundColor = kColorRGB(0xffffff);
     
     self.currentMaxLength = 0;
     
-    _tagButtons=[NSMutableArray new];
-    _tagStrings=[NSMutableArray new];
-    _tagStringsSelected=[NSMutableArray new];
+    _tagButtons = [NSMutableArray new];
+    _tagStrings = [NSMutableArray new];
+    _tagStringsSelected = [NSMutableArray new];
     
     {
         
         // 标签所在的view(UIScrollView)
-        UIScrollView* sv = [[UIScrollView alloc] initWithFrame:self.bounds];
-        sv.contentSize=sv.frame.size;
-        sv.contentSize=CGSizeMake(sv.frame.size.width, 600);
-        sv.indicatorStyle=UIScrollViewIndicatorStyleDefault;
+        UIScrollView *sv = [[UIScrollView alloc] initWithFrame:self.bounds];
+        sv.contentSize = sv.frame.size;
+        sv.contentSize = CGSizeMake(sv.frame.size.width, 600);
+        sv.indicatorStyle = UIScrollViewIndicatorStyleDefault;
         sv.backgroundColor = self.backgroundColor;
         // 垂直滚动条
         sv.showsVerticalScrollIndicator = YES;
         // 水平滚动条
         sv.showsHorizontalScrollIndicator = NO;
         [self addSubview:sv];
-        _svContainer=sv;
+        _svContainer = sv;
     }
-    {
-        // 默认的标签
-        UITextField* tf = [[SMTextField alloc] initWithFrame:CGRectMake(0, 0, _tagWidht, _tagHeight)];
-        tf.autocorrectionType = UITextAutocorrectionTypeNo;
-        [tf addTarget:self action:@selector(textFieldDidFinishChange:)forControlEvents:UIControlEventEditingChanged];
-        tf.delegate = self;
-        tf.placeholder=@"New Tag";
-        
-        tf.returnKeyType = UIReturnKeyDone;
-        [_svContainer addSubview:tf];
-        _tfInput=tf;
-    }
-    {
-        _gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-        _gestureRecognizer.numberOfTapsRequired=1;
-        [self addGestureRecognizer:_gestureRecognizer];
-    }
+    
 }
 
-#pragma mark -
+
 -(NSMutableArray *)tagStrings{
     
     return _tagStrings;
 }
 
-
+#pragma mark - 对标签视图重新布局
 - (void)layoutTags {
-    [_tfInput removeFromSuperview];
+    
     self.isFirst = YES;
-    float oldContentHeight=_svContainer.contentSize.height; // 600
-    float offsetX=_tagPaddingSize.width,offsetY=_tagPaddingSize.height; // 5,  5
+    float oldContentHeight=_svContainer.contentSize.height;
+    float offsetX=_tagPaddingSize.width,offsetY=_tagPaddingSize.height;
     for (int i=0; i<_tagButtons.count; i++) {
-        SMTagViewCheckBoxButton* tagButton=_tagButtons[i];
+        TTTagViewCheckBoxButton* tagButton=_tagButtons[i];
         CGRect frame=tagButton.frame;
         self.isFirst = NO;
         
@@ -235,16 +218,18 @@
     
 }
 
-- (SMTagViewCheckBoxButton *)tagButtonWithTag:(NSString *)tag
+// 添加标签按钮
+- (TTTagViewCheckBoxButton *)tagButtonWithTag:(NSString *)tag
 {
-    SMTagViewCheckBoxButton *tagBtn = [[SMTagViewCheckBoxButton alloc] init];
-    tagBtn.colorBg=_colorTagBg;
-    tagBtn.colorText=_colorTag;
-    tagBtn.borderColor = _colorInputBg;
+    TTTagViewCheckBoxButton *tagBtn = [[TTTagViewCheckBoxButton alloc] init];
     
-    tagBtn.selColorBg = _colorInputBg;
-    tagBtn.selColorText = _colorInput;
-    tagBtn.selBorderColor = _colorInput;
+    tagBtn.colorBg=_bgColor;
+    tagBtn.colorText=_textColor;
+    tagBtn.borderColor = _borderColor;
+    
+    tagBtn.selColorBg = _selBgColor;
+    tagBtn.selColorText = _selTextColor;
+    tagBtn.selBorderColor = _selBorderColor;
     
     tagBtn.selected=NO;
     [tagBtn.titleLabel setFont:_fontTag];
@@ -259,7 +244,12 @@
     tagBtn.frame=btnFrame;
     return tagBtn;
 }
-- (void)handlerTagButtonEvent:(SMTagViewCheckBoxButton*)sender
+/**
+ *  标签按钮的点击
+ *
+ *  @param sender 选中 <-> 未选中 之间的转换
+ */
+- (void)handlerTagButtonEvent:(TTTagViewCheckBoxButton*)sender
 {
     BOOL isSelected = sender.selected;
     sender.selected = !sender.selected;
@@ -267,11 +257,9 @@
         [self.delegate buttonClick:sender.titleLabel.text and:isSelected];
     }
     
-    NSLog(@"按钮点击");
-    
 }
-#pragma mark action
 
+#pragma mark - 添加标签
 - (void)addTags:(NSArray *)tags{
     for (NSString *tag in tags)
     {
@@ -281,18 +269,14 @@
     [self layoutTags];
     
 }
-- (void)addTags:(NSArray *)tags selectedTags:(NSArray*)selectedTags{
-    [self addTags:tags];
-    self.tagStringsSelected=[NSMutableArray arrayWithArray:selectedTags];
-}
+
 - (void)addTagToLast:(NSString *)tag{
     NSArray *result = [_tagStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %@", tag]];
     if (result.count == 0)
     {
         [_tagStrings addObject:tag];
         
-        SMTagViewCheckBoxButton* tagButton=[self tagButtonWithTag:tag];
-        [tagButton addTarget:self action:@selector(handlerButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        TTTagViewCheckBoxButton* tagButton=[self tagButtonWithTag:tag];
         [_svContainer addSubview:tagButton];
         [_tagButtons addObject:tagButton];
 
@@ -300,128 +284,16 @@
     [self layoutTags];
 }
 
-- (void)removeTags:(NSArray *)tags{
-    for (NSString *tag in tags)
-    {
-        [self removeTag:tag];
-    }
-    [self layoutTags];
-}
-- (void)removeTag:(NSString *)tag{
-    NSArray *result = [_tagStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %@", tag]];
-    if (result)
-    {
-        NSInteger index=[_tagStrings indexOfObject:tag];
-        [_tagStrings removeObjectAtIndex:index];
-        [_tagButtons[index] removeFromSuperview];
-        [_tagButtons removeObjectAtIndex:index];
-    }
-    [self layoutTags];
-}
-
-
--(void)handlerButtonAction:(SMTagViewCheckBoxButton*)tagButton{
-
-    
-}
-
-
-#pragma mark UITextFieldDelegate
-
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    if (!textField.text
-        || [textField.text isEqualToString:@""]) {
-        return NO;
-    }
-    [self addTagToLast:textField.text];
-    textField.text=nil;
-    [self layoutTags];
-    return NO;
-}
-
--(void)textFieldDidFinishChange:(UITextField*)textField{
-    [self layoutTags];
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
-    NSString* string2= [textField.text stringByReplacingCharactersInRange:range withString:string];
-    CGRect frame=_tfInput.frame;
-    frame.size.width = [textField.text sizeWithAttributes:@{NSFontAttributeName:_fontInput}].width + (_tfInput.layer.cornerRadius * 2.0f);
-    frame.size.width=MAX(frame.size.width, _tagWidht);
-    if (frame.size.width+_tagPaddingSize.width*2 >= _svContainer.width - 30) {
-        NSLog(@"!!!  _tfInput width tooooooooo large");
-        if (string2.length < textField.text.length) {
-            
-            return YES;
-        } else {
-            
-            frame.size.width = MIN(frame.size.width, _svContainer.width);
-            _tfInput.frame = frame;
-            return NO;
-        }
-        
-    } else {
-        return YES;
-    }
-}
-
--(void)textFieldDidBeginEditing:(UITextField *)textField{
-    if ([_delegate conformsToProtocol:@protocol(UITextFieldDelegate)]
-        && [_delegate respondsToSelector:@selector(textFieldDidEndEditing:)]) {
-        [_delegate performSelector:@selector(textFieldDidBeginEditing:) withObject:textField];
-    }
-}
-
-
--(void)textFieldDidEndEditing:(UITextField *)textField{
-    [self layoutTags];
-    if ([_delegate conformsToProtocol:@protocol(UITextFieldDelegate)]
-        && [_delegate respondsToSelector:@selector(textFieldDidEndEditing:)]) {
-        [_delegate performSelector:@selector(textFieldDidEndEditing:) withObject:textField];
-    }
-}
-
-#pragma mark UIMenuController
-
-- (void) deleteItemClicked:(id) sender {
-    [self removeTag:_tagStrings[_editingTagIndex]];
-}
-
-- (BOOL) canPerformAction:(SEL)selector withSender:(id) sender {
-    if (selector == @selector(deleteItemClicked:) /*|| selector == @selector(copy:)*/ /*<--enable that if you want the copy item */) {
-        return YES;
-    }
-    return NO;
-}
-
-- (BOOL) canBecomeFirstResponder {
-    return YES;
-}
-
-- (void)handlePan:(UIPanGestureRecognizer *)recognizer {
-    [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
-}
-
-#pragma mark getter & setter
+#pragma mark setter方法
 -(void)setBackgroundColor:(UIColor *)backgroundColor{
     [super setBackgroundColor:backgroundColor];
     _svContainer.backgroundColor=backgroundColor;
 }
 
--(void)setColorTagBg:(UIColor *)colorTagBg{
-    _colorTagBg=colorTagBg;
-    
-}
--(void)setColorTag:(UIColor *)colorTag{
-    _colorTag=colorTag;
-    
-}
 -(void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected{
     
     _tagStringsSelected=tagStringsSelected;
+    
     for (NSString *str in tagStringsSelected) {
         for (int i = 0; i < self.tagStrings.count; i ++) {
             if ([str isEqualToString:self.tagStrings[i]]) {
@@ -435,18 +307,28 @@
 }
 
 - (void)setDeleteString:(NSString *)deleteString {
+    
     if (_deleteString != deleteString) {
         _deleteString = deleteString;
     }
     
     for (int i = 0; i < self.tagStrings.count; i ++) {
         if ([deleteString isEqualToString:self.tagStrings[i]]) {
-            SMTagViewCheckBoxButton *button = self.tagButtons[i];
+            TTTagViewCheckBoxButton *button = self.tagButtons[i];
             button.selected = NO;
             return;
         }
     }
 }
+
+
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    
+//    [super touchesBegan:touches withEvent:event];
+//    NSLog(@"111");
+//    
+//}
+
 
 
 @end

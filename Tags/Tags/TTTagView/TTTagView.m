@@ -9,14 +9,29 @@
 #import "TTTagView.h"
 
 @interface TTCheckBoxButton :UIButton
-
-@property (nonatomic, strong) UIColor* colorBg;
-@property (nonatomic, strong) UIColor* colorText;
+/**
+ *  未被选中时标签的背景颜色
+ */
+@property (nonatomic, strong) UIColor *colorBg;
+/**
+ *  未被选中时标签的文字的颜色
+ */
+@property (nonatomic, strong) UIColor *colorText;
+/**
+ *  未被选中时标签的边框颜色
+ */
 @property (strong, nonatomic) UIColor *borderColor;
-
-
-@property (nonatomic, strong) UIColor* selColorBg;
-@property (nonatomic, strong) UIColor* selColorText;
+/**
+ *  被选中时标签的背景颜色
+ */
+@property (nonatomic, strong) UIColor *selColorBg;
+/**
+ *  被选中时标签的文字的颜色
+ */
+@property (nonatomic, strong) UIColor *selColorText;
+/**
+ *  被选中时标签的边框颜色
+ */
 @property (strong, nonatomic) UIColor *selBorderColor;
 
 @end
@@ -24,18 +39,21 @@
 
 @implementation TTCheckBoxButton
 
--(void)setSelected:(BOOL)selected{
+- (void)setSelected:(BOOL)selected {
+    
     [super setSelected:selected];
     if (selected) {
+        
         [self setBackgroundColor:_selColorBg];
-        self.layer.borderColor=_selBorderColor.CGColor;
-        self.layer.borderWidth=1;
+        self.layer.borderColor = _selBorderColor.CGColor;
+        self.layer.borderWidth = 1;
         [self setTitleColor:_selColorText forState:UIControlStateSelected];
     } else {
-        [self setBackgroundColor:_colorText];
-        self.layer.borderColor=_colorBg.CGColor;
-        self.layer.borderWidth=1;
-        [self setTitleColor:_colorBg forState:UIControlStateNormal];
+        
+        [self setBackgroundColor:_colorBg];
+        self.layer.borderColor = _borderColor.CGColor;
+        self.layer.borderWidth = 1;
+        [self setTitleColor:_colorText forState:UIControlStateNormal];
     }
     [self setNeedsDisplay];
 }
@@ -63,17 +81,26 @@
 
 @interface TTTagView() <UITextFieldDelegate>
 
-// 容器view
+/**
+ *  容器view
+ */
 @property (nonatomic, strong) UIScrollView* svContainer;
-// 标签按钮的数组
+/**
+ *  标签按钮的数组
+ */
 @property (nonatomic, strong) NSMutableArray *tagButtons;
-// 用来记录标签上边的文本
+/**
+ *  用来记录标签上边的文本
+ */
 @property (nonatomic, strong) NSMutableArray *tagStrings;
-// 标记被选中的标签
+/**
+ *  标记被选中的标签
+ */
 @property (nonatomic, strong) NSMutableArray *tagStringsSelected;
-// 
+/**
+ *  点击inputView的手势 (用来取消被选中的标签, 还有结束编辑状态, 生成新的标签)
+ */
 @property (nonatomic) UITapGestureRecognizer *gestureRecognizer;
-
 /**
  *  被选中的标签
  */
@@ -87,8 +114,6 @@
 @property (assign, nonatomic) CGFloat currentMaxLength;
 // 判定是否是第一行还没有标签(防止在第一行编辑标签的时候就进行换行导致第一行空出来)
 @property (assign, nonatomic) BOOL isFirst;
-
-
 
 @end
 
@@ -124,68 +149,59 @@
     /**
      *  默认的标签类型(编辑)
      */
-    _type=TTTagView_Type_Edit;
+    _type = TTTagView_Type_Edit;
     /**
      *  默认的标签宽度
      */
-    _tagWidht= 85;
+    _tagWidht = 85;
     /**
      *  默认的标签高度
      */
-    _tagHeight= 30;
+    _tagHeight = 30;
     /**
      *  第一个参数是左右两个标签之间的间隔  第二个参数是上下两个标签之间的间隔
      */
-    _tagPaddingSize=CGSizeMake(10, 10);
+    _tagPaddingSize = CGSizeMake(10, 10);
     /**
      *  第一个参数表示标签内部text文本左右距离文本框的距离
      */
-    _textPaddingSize=CGSizeMake(12.5, 0);
+    _textPaddingSize = CGSizeMake(12.5, 0);
     /**
      *  标签字体大小
      */
-    _fontTag=[UIFont systemFontOfSize:14];
+    _fontTag = [UIFont systemFontOfSize:14];
     /**
      *  输入标签的字体大小
      */
-    _fontInput=[UIFont systemFontOfSize:14];
-    /**
-     *  标签的颜色(输入完成)
-     */
-    _colorTag=kColorRGB(0xffffff);
-    /**
-     *  输入标签的颜色
-     */
-    _colorInput=kColorRGB(0x2ab44e);
-    /**
-     *  输入标签占位字符的颜色
-     */
-    _colorInputPlaceholder=kColorRGB(0x2ab44e);
-    /**
-     *  标签的背景颜色
-     */
-    _colorTagBg=kColorRGB(0x2ab44e);
-    /**
-     *  输入标签的背景颜色
-     */
-    _colorInputBg = kColorRGB(0xbbbbbb);
-    _colorInputBoard = kColorRGB(0x2ab44e);
+    _fontInput = [UIFont systemFontOfSize:14];
+    
+    _inputBgColor = kColorRGB(0xffffff);
+    _inputPlaceHolderTextColor = kColorRGB(0xcccccc);
+    _inputTextColor = kColorRGB(0x000000);
+    _inputBorderColor = kColorRGB(0xfafafa);
+    _bgColor = kColorRGB(0xffffff);
+    _textColor = kColorRGB(0xffae00);
+    _borderColor = kColorRGB(0xffae00);
+    _selBgColor = kColorRGB(0xffae00);
+    _selTextColor = kColorRGB(0xffffff);
+    _selBorderColor = kColorRGB(0xffae00);
+    
     _viewMaxHeight = 130;
-    self.backgroundColor=kColorRGB(0xffffff);
+    self.backgroundColor = kColorRGB(0xffffff);
     
     self.currentMaxLength = 0;
     /**
      *  标签中的按钮
      */
-    _tagButtons=[NSMutableArray new];
+    _tagButtons = [NSMutableArray new];
     /**
      *  标签上显示的文字
      */
-    _tagStrings=[NSMutableArray new];
+    _tagStrings = [NSMutableArray new];
     /**
      *  被选中的标签
      */
-    _tagStringsSelected=[NSMutableArray new];
+    _tagStringsSelected = [NSMutableArray new];
     
     {
         
@@ -193,10 +209,9 @@
          *  标签所在的view(UIScrollView)
          */
         UIScrollView* sv = [[UIScrollView alloc] initWithFrame:self.bounds];
-        sv.contentSize=sv.frame.size;
-//        sv.contentSize=CGSizeMake(sv.frame.size.width, self.height);
+        sv.contentSize = sv.frame.size;
         self.changeHeight = sv.contentSize.height;
-        sv.indicatorStyle=UIScrollViewIndicatorStyleDefault;
+        sv.indicatorStyle = UIScrollViewIndicatorStyleDefault;
         sv.backgroundColor = self.backgroundColor;
         // 取消弹簧效果
         sv.bounces = NO;
@@ -205,7 +220,7 @@
         // 水平滚动条
         sv.showsHorizontalScrollIndicator = NO;
         [self addSubview:sv];
-        _svContainer=sv;
+        _svContainer = sv;
     }
     {
         // 默认的标签
@@ -213,34 +228,34 @@
         tf.autocorrectionType = UITextAutocorrectionTypeNo;
         [tf addTarget:self action:@selector(textFieldDidFinishChange:)forControlEvents:UIControlEventEditingChanged];
         tf.delegate = self;
-        tf.placeholder=@"添加标签";
+        tf.placeholder = @"添加标签";
         
         tf.returnKeyType = UIReturnKeyDone;
         [_svContainer addSubview:tf];
-        _tfInput=tf;
+        _tfInput = tf;
     }
     {
         _gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-        _gestureRecognizer.numberOfTapsRequired=1;
+        _gestureRecognizer.numberOfTapsRequired = 1;
         [self addGestureRecognizer:_gestureRecognizer];
     }
 }
 
 
--(NSMutableArray *)tagStrings{
+- (NSMutableArray *)tagStrings {
+    
       switch (_type) {
-        case TTTagView_Type_Edit:
-        {
+        case TTTagView_Type_Edit: {
             return _tagStrings;
         }
             break;
-        case TTTagView_Type_Display:
-        {
-            return nil;
+        case TTTagView_Type_Display: {
+//            return nil;
+            return _tagStrings;
         }
             break;
-        case TTTagView_Type_Selected:
-        {
+        case TTTagView_Type_Selected: {
+            
             [_tagStringsSelected removeAllObjects];
             for (TTCheckBoxButton* button in _tagButtons) {
                 if (button.selected) {
@@ -252,8 +267,7 @@
         }
             break;
               
-        default:
-        {
+        default: {
             
         }
             break;
@@ -262,8 +276,12 @@
 }
 
 #pragma mark - 对标签进行重新布局
--(void)layoutTagviews{
+-(void)layoutTagviews {
+    
     self.isFirst = YES;
+    if (self.selectedBtn != nil) {
+        [self.selectedBtn setSelected:NO];
+    }
     float oldContentHeight=_svContainer.contentSize.height;
     float offsetX=_tagPaddingSize.width,offsetY=_tagPaddingSize.height;
     for (int i=0; i<_tagButtons.count; i++) {
@@ -295,13 +313,15 @@
     }
     _tfInput.hidden=(_type!=TTTagView_Type_Edit);
     if (_type==TTTagView_Type_Edit) {
-        _tfInput.backgroundColor=_colorInputBg;
-        _tfInput.textColor=_colorInput;
+        
         _tfInput.font=_fontInput;
         
-        [_tfInput setValue:_colorInputPlaceholder forKeyPath:@"_placeholderLabel.textColor"];
+        _tfInput.backgroundColor = _inputBgColor;
+        _tfInput.textColor=_inputTextColor;
+        [_tfInput setValue:_inputPlaceHolderTextColor forKeyPath:@"_placeholderLabel.textColor"];
+        _tfInput.layer.borderColor=_inputBorderColor.CGColor;
+        
         _tfInput.layer.cornerRadius = _tfInput.frame.size.height * 0.5f;
-        _tfInput.layer.borderColor=_colorInputBoard.CGColor;
         _tfInput.layer.borderWidth=1;
         {
             CGRect frame=_tfInput.frame;
@@ -337,6 +357,7 @@
         frame.size.height=MIN(frame.size.height, _viewMaxHeight);
         _svContainer.frame=frame;
     }
+    
     {
         CGRect frame=self.frame;
         frame.size.height=_svContainer.frame.size.height;
@@ -352,21 +373,23 @@
 }
 
 #pragma mark - 在textField上边添加一个按钮
-- (TTCheckBoxButton *)tagButtonWithTag:(NSString *)tag
-{
-    TTCheckBoxButton *tagBtn = [[TTCheckBoxButton alloc] init];
-    tagBtn.colorBg=_colorTagBg;
-    tagBtn.colorText=_colorTag;
-    tagBtn.borderColor = _colorInputBg;
+- (TTCheckBoxButton *)tagButtonWithTag:(NSString *)tag {
     
-    tagBtn.selColorBg = _colorInputBg;
-    tagBtn.selColorText = _mainColor;
-    tagBtn.selBorderColor = _mainColor;
-    tagBtn.selected=YES;
+    TTCheckBoxButton *tagBtn = [[TTCheckBoxButton alloc] init];
+    
+    tagBtn.colorText = _textColor;
+    tagBtn.colorBg = _bgColor;
+    tagBtn.borderColor = _borderColor;
+    
+    tagBtn.selColorBg = _selBgColor;
+    tagBtn.selColorText = _selTextColor;
+    tagBtn.selBorderColor = _selBorderColor;
+    
+    tagBtn.selected = NO;
     [tagBtn.titleLabel setFont:_fontTag];
     [tagBtn addTarget:self action:@selector(handlerTagButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
     [tagBtn setTitle:tag forState:UIControlStateSelected];
-    
+    [tagBtn setTitle:tag forState:UIControlStateNormal];
     CGRect btnFrame = CGRectMake(0, 0, 0, 0);
     btnFrame.size.height = _tagHeight;
     tagBtn.layer.cornerRadius = btnFrame.size.height * 0.5f;
@@ -377,23 +400,20 @@
 }
 
 #pragma mark - 按钮的点击事件
-- (void)handlerTagButtonEvent:(TTCheckBoxButton*)sender
-{
+- (void)handlerTagButtonEvent:(TTCheckBoxButton *)sender {
+    
+    [self textFieldShouldReturn:_tfInput];
     if (self.selectedBtn != nil) {
-        [self.selectedBtn setTitleColor:_mainColor forState:UIControlStateSelected];
-        [self.selectedBtn setBackgroundColor:_colorInputBg];
+        [self.selectedBtn setSelected:NO];
     }
 
     self.selectedBtn = sender;
-    [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-    [sender setBackgroundColor:_mainColor];
-    
-    NSLog(@"按钮点击");
+    [self.selectedBtn setSelected:YES];
     
 }
 #pragma mark action 添加标签
 
-- (void)addTags:(NSArray *)tags{
+- (void)addTags:(NSArray *)tags {
     for (NSString *tag in tags)
     {
         [self addTagToLast:tag];
@@ -403,30 +423,29 @@
     
 }
 
-- (void)addTags:(NSArray *)tags selectedTags:(NSArray*)selectedTags{
+- (void)addTags:(NSArray *)tags selectedTags:(NSArray*)selectedTags {
+    
     [self addTags:tags];
     self.tagStringsSelected=[NSMutableArray arrayWithArray:selectedTags];
 }
 
 - (void)addTagToLast:(NSString *)tag{
     NSArray *result = [_tagStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %@", tag]];
-    if (result.count == 0)
-    {
+    if (result.count == 0) {
         [_tagStrings addObject:tag];
         [_svContainer scrollRectToVisible:CGRectMake(_svContainer.left, _svContainer.contentSize.height - 50, kScreenWidth, 50) animated:YES];
         if ([self.delegate respondsToSelector:@selector(finishInput:)]) {
             [self.delegate finishInput:tag];
         }
         
-        TTCheckBoxButton* tagButton=[self tagButtonWithTag:tag];
+        TTCheckBoxButton *tagButton = [self tagButtonWithTag:tag];
         [tagButton addTarget:self action:@selector(handlerButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [_svContainer addSubview:tagButton];
         [_tagButtons addObject:tagButton];
         
         switch (_type) {
-            case TTTagView_Type_Selected:
-            {
-                tagButton.selected=NO;
+            case TTTagView_Type_Selected: {
+                tagButton.selected = NO;
             }
                 break;
             default:
@@ -436,17 +455,19 @@
     [self layoutTagviews];
 }
 #pragma mark - 删除标签
-- (void)removeTags:(NSArray *)tags{
-    for (NSString *tag in tags)
-    {
+- (void)removeTags:(NSArray *)tags {
+    
+    for (NSString *tag in tags) {
         [self removeTag:tag];
     }
     [self layoutTagviews];
 }
-- (void)removeTag:(NSString *)tag{
+
+- (void)removeTag:(NSString *)tag {
+    
     NSArray *result = [_tagStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %@", tag]];
-    if (result)
-    {
+    if (result) {
+        
         NSInteger index=[_tagStrings indexOfObject:tag];
         [_tagStrings removeObjectAtIndex:index];
         [_tagButtons[index] removeFromSuperview];
@@ -456,7 +477,7 @@
 }
 
 #pragma mark - 删除标签
--(void)handlerButtonAction:(TTCheckBoxButton*)tagButton{
+-(void)handlerButtonAction:(TTCheckBoxButton*)tagButton {
     
     switch (_type) {
         case TTTagView_Type_Edit:
@@ -478,12 +499,12 @@
         case TTTagView_Type_Selected:
         {
             if (tagButton.selected) {
-                tagButton.selected=NO;
+                tagButton.selected = NO;
             }else{
-                for (TTCheckBoxButton* button in _tagButtons) {
-                    button.selected=NO;
+                for (TTCheckBoxButton *button in _tagButtons) {
+                    button.selected = NO;
                 }
-                tagButton.selected=YES;
+                tagButton.selected = YES;
             }
         }
             break;
@@ -498,10 +519,8 @@
 
 
 #pragma mark UITextFieldDelegate
-
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
+    
     if (!textField.text
         || [textField.text isEqualToString:@""]) {
         return NO;
@@ -516,6 +535,7 @@
     return NO;
 }
 
+#pragma mark - 这里限制标签的字数为18
 -(void)textFieldDidFinishChange:(UITextField*)textField{
     
     NSString *lang = [[textField textInputMode] primaryLanguage]; // 键盘输入模式
@@ -542,16 +562,15 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
-    
     // 标签中限制其输入空格
     if ([string isEqualToString:@" "]) {
         return NO;
     }
-    NSString* string2= [textField.text stringByReplacingCharactersInRange:range withString:string];
-    CGRect frame=_tfInput.frame;
+    NSString* string2 = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    CGRect frame = _tfInput.frame;
     frame.size.width = [textField.text sizeWithAttributes:@{NSFontAttributeName:_fontInput}].width + (_tfInput.layer.cornerRadius * 2.0f);
-    frame.size.width=MAX(frame.size.width, _tagWidht);
-    if (frame.size.width+_tagPaddingSize.width*2 >= _svContainer.width - 30) {
+    frame.size.width = MAX(frame.size.width, _tagWidht);
+    if (frame.size.width + _tagPaddingSize.width*2 >= _svContainer.width - 30) {
 
         if (string2.length < textField.text.length) {
             
@@ -570,9 +589,10 @@
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    
     if (self.selectedBtn != nil) {
-        [self.selectedBtn setTitleColor:_mainColor forState:UIControlStateSelected];
-        [self.selectedBtn setBackgroundColor:_colorInputBg];
+        [self.selectedBtn setSelected:NO];
+        
     }
     return YES;
 }
@@ -586,16 +606,16 @@
 }
 
 
--(void)textFieldDidEndEditing:(UITextField *)textField{
-    [self layoutTagviews];
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    
     if ([_delegate conformsToProtocol:@protocol(UITextFieldDelegate)]
         && [_delegate respondsToSelector:@selector(textFieldDidEndEditing:)]) {
         [_delegate performSelector:@selector(textFieldDidEndEditing:) withObject:textField];
     }
 }
-#pragma mark UIMenuController
 
-- (void) deleteItemClicked:(TTCheckBoxButton *) sender {
+#pragma mark UIMenuController
+- (void)deleteItemClicked:(TTCheckBoxButton *)sender {
     
     if ([self.delegate respondsToSelector:@selector(deleteBtnClick:)]) {
         [self.delegate deleteBtnClick:_tagStrings[_editingTagIndex]];
@@ -603,49 +623,60 @@
     
     [self removeTag:_tagStrings[_editingTagIndex]];
 }
-- (BOOL) canPerformAction:(SEL)selector withSender:(id) sender {
-    if (selector == @selector(deleteItemClicked:) /*|| selector == @selector(copy:)*/ /*<--enable that if you want the copy item */) {
+
+- (BOOL)canPerformAction:(SEL)selector withSender:(id)sender {
+    if (selector == @selector(deleteItemClicked:)) {
         return YES;
     }
     return NO;
 }
+
 - (BOOL) canBecomeFirstResponder {
     return YES;
 }
-- (void)handlePan:(UIPanGestureRecognizer *)recognizer {
+
+-(void)handlePan:(UIPanGestureRecognizer *)recognizer {
+    
     [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
-    [self.selectedBtn setTitleColor:_mainColor forState:UIControlStateSelected];
-    [self.selectedBtn setBackgroundColor:_colorInputBg];
+    if (self.selectedBtn != nil) {
+        [self.selectedBtn setSelected:NO];
+    }
+//    [self.selectedBtn setSelected:NO];
     [self textFieldShouldReturn:_tfInput];
 }
 
 
 #pragma mark getter & setter
--(void)setBackgroundColor:(UIColor *)backgroundColor{
+- (void)setBackgroundColor:(UIColor *)backgroundColor {
+    
     [super setBackgroundColor:backgroundColor];
-    _svContainer.backgroundColor=backgroundColor;
+    _svContainer.backgroundColor = backgroundColor;
 }
--(void)setType:(TTTagView_Type)type{
+
+- (void)setType:(TTTagView_Type)type {
+    
     _type=type;
     switch (_type) {
         case TTTagView_Type_Edit:
         {
             for (UIButton* button in _tagButtons) {
-                button.selected=YES;
+//                button.selected = YES;
+                button.selected = NO;
             }
         }
             break;
         case TTTagView_Type_Display:
         {
-            for (UIButton* button in _tagButtons) {
-                button.selected=YES;
+            for (UIButton *button in _tagButtons) {
+//                button.selected = YES;
+                button.selected = NO;
             }
         }
             break;
         case TTTagView_Type_Selected:
         {
-            for (UIButton* button in _tagButtons) {
-                button.selected=[_tagStringsSelected containsObject:button.titleLabel.text];
+            for (UIButton *button in _tagButtons) {
+                button.selected = [_tagStringsSelected containsObject:button.titleLabel.text];
             }
         }
             break;
@@ -657,25 +688,36 @@
     }
     [self layoutTagviews];
 }
--(void)setColorTagBg:(UIColor *)colorTagBg{
-    _colorTagBg=colorTagBg;
-    for (TTCheckBoxButton* button in _tagButtons) {
-        button.colorBg=colorTagBg;
+
+//- (void)setColorTagBg:(UIColor *)colorTagBg {
+//    
+//    _colorTagBg=colorTagBg;
+//    for (TTCheckBoxButton* button in _tagButtons) {
+//        button.colorBg=colorTagBg;
+//    }
+//}
+
+- (void)setBgColor:(UIColor *)bgColor {
+    
+    if (_bgColor == nil) {
+        _bgColor = bgColor;
     }
-}
--(void)setColorTag:(UIColor *)colorTag{
-    _colorTag=colorTag;
-    for (TTCheckBoxButton* button in _tagButtons) {
-        button.colorText=colorTag;
+    
+    for (TTCheckBoxButton *button in _tagButtons) {
+        button.colorBg = bgColor;
     }
+    
 }
--(void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected{
+
+
+-(void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected {
     _tagStringsSelected=tagStringsSelected;
     switch (_type) {
+            
         case TTTagView_Type_Selected:
         {
-            for (UIButton* button in _tagButtons) {
-                button.selected=[tagStringsSelected containsObject:button.titleLabel.text];
+            for (UIButton *button in _tagButtons) {
+                button.selected = [tagStringsSelected containsObject:button.titleLabel.text];
             }
         }
             break;

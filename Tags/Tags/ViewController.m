@@ -41,7 +41,6 @@
 @end
 
 @implementation ViewController {
-    
     /**
      *  输入标签view
      */
@@ -86,7 +85,6 @@
 }
 
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.inputHeight = 50;
@@ -104,7 +102,6 @@
         //刷新状态栏样式
         [self setNeedsStatusBarAppearanceUpdate];
     }
-    
     
     if (self.bqlabStr.length > 0) {
         [inputTagView addTags:self.selectedTags];
@@ -140,19 +137,26 @@
     inputTagView = [[TTTagView alloc] initWithFrame:CGRectMake(0, 0,self.view.width ,self.inputHeight)];
     inputTagView.translatesAutoresizingMaskIntoConstraints=YES;
     inputTagView.delegate = self;
-    inputTagView.colorTag = kColorRGB(0xcccccc);
-    inputTagView.colorTagBg = kColorRGB(0x999999);
-    inputTagView.colorInput = kColorRGB(0x000000);
-    inputTagView.colorInputBg = kColorRGB(0xffffff);
-    inputTagView.colorInputPlaceholder = kColorRGB(0xcccccc);
-    inputTagView.backgroundColor = kColorRGB(0xffffff);
-    inputTagView.colorInputBoard = kColorRGB(0xfafafa);
-    inputTagView.mainColor = kColorRGB(0xffae00);
+    
+    {// 这些属性有默认值, 可以不进行设置
+        inputTagView.inputBgColor = kRandomColor;
+        inputTagView.inputPlaceHolderTextColor = kRandomColor;
+        inputTagView.inputTextColor = kRandomColor;
+        inputTagView.inputBorderColor = kRandomColor;
+        inputTagView.bgColor = kRandomColor;
+        inputTagView.textColor = kRandomColor;
+        inputTagView.borderColor = kRandomColor;
+        inputTagView.selBgColor = kRandomColor;
+        inputTagView.selTextColor = kRandomColor;
+        inputTagView.selBorderColor = kRandomColor;
+    }
+    
     // KVO监测其高度是否发生改变(改变的话就需要修改下边的所有控件的frame)
     [inputTagView addObserver:self forKeyPath:@"changeHeight" options:NSKeyValueObservingOptionNew context:nil];
     
     [textBgView addSubview:inputTagView];
     
+    // 这里刷新是为了如果没有已经存在的标签(bqlabStr)传进来的话就会出问题
     [inputTagView layoutTagviews];
     [inputTagView resignFirstResponder];
     
@@ -174,6 +178,8 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = kCOLOR(245);
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelSelectedTag)];
+    [cell.contentView addGestureRecognizer:tap];
     [cell.contentView addSubview:[self addHistoryViewTagsWithCGRect:CGRectMake(0, 0, kScreenWidth, 44) andIndex:indexPath]];
     
     return cell;
@@ -220,6 +226,9 @@
     label.font = [UIFont systemFontOfSize:14];
     label.textAlignment = NSTextAlignmentLeft;
     [bgView addSubview:label];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelSelectedTag)];
+    
+    [bgView addGestureRecognizer:tap];
     
     return bgView;
     
@@ -258,23 +267,27 @@
     tagView.translatesAutoresizingMaskIntoConstraints=YES;
     tagView.delegate = self;
     tagView.changeHeight = 0;
-    tagView.colorTag = kColorRGB(0xcccccc);
-    tagView.colorTagBg = kColorRGB(0x999999);
-    tagView.colorInput = kColorRGB(0xffae00);
-    tagView.colorInputBg = kColorRGB(0xffffff);
-    tagView.colorInputPlaceholder = kColorRGB(0xffae00);
     tagView.backgroundColor = [UIColor clearColor];
-    tagView.colorInputBoard = kColorRGB(0xffae00);
+
+    {// 这些属性颜色有默认值, 可以设置也可以不设置
+        tagView.bgColor = kRandomColor;
+        tagView.textColor = kRandomColor;
+        tagView.borderColor = kRandomColor;
+        tagView.selBgColor = kRandomColor;
+        tagView.selTextColor = kRandomColor;
+        tagView.selBorderColor = kRandomColor;
+        
+    }
+    
+    
     
     
     if (self.dataArr.count > 0) {
         [tagView addTags:self.dataArr[indexPath.section]];
     }
     // 这里存储tagView的最大高度, 是为了设置cell的行高
-    if (self.heightArr.count > indexPath.section) {
-    } else {
-        [self.heightArr addObject:[NSString stringWithFormat:@"%f", tagView.changeHeight]];
-    }
+    [self.heightArr addObject:[NSString stringWithFormat:@"%f", tagView.changeHeight]];
+    
     
     // 在这里处理上下标签的对应关系, 上边出现的标签如果下边也有的话就要修改其状态(改为选中状态)
     {
@@ -371,10 +384,13 @@
         self.tableView.frame = CGRectMake(0, self.inputHeight, kScreenWidth, kScreenHeight - self.inputHeight - 64);
     }];
     
-    
-    
 }
 
+#pragma mark - 添加的手势方法(用来取消inputView中的被选中的标签)
+- (void)cancelSelectedTag {
+    
+    [inputTagView layoutTagviews];
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
@@ -399,7 +415,6 @@
     
     [inputTagView removeObserver:self forKeyPath:@"changeHeight"];
 }
-
 
 
 - (void)didReceiveMemoryWarning {
