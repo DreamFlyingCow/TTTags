@@ -64,15 +64,18 @@
 @interface TTTextField : UITextField
 
 @end
+
 @implementation TTTextField
 
 // 设置占位文本的位置
 - (CGRect)textRectForBounds:(CGRect)bounds {
+    
     return CGRectInset( bounds , 12.5 , 0 );
 }
 
 // 设置文本的位置
 - (CGRect)editingRectForBounds:(CGRect)bounds {
+    
     return CGRectInset( bounds , 12.5 , 0 );
 }
 
@@ -84,7 +87,7 @@
 /**
  *  容器view
  */
-@property (nonatomic, strong) UIScrollView* svContainer;
+@property (nonatomic, strong) UIScrollView *svContainer;
 /**
  *  标签按钮的数组
  */
@@ -117,15 +120,15 @@
 
 @end
 
-@implementation TTTagView
-{
+@implementation TTTagView {
+    
     // 正在编辑的标签的下标
     NSInteger _editingTagIndex;
 }
 
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self commonInit];
@@ -133,8 +136,8 @@
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
+    
     self = [super initWithFrame:frame];
     if (self) {
         [self commonInit];
@@ -143,8 +146,7 @@
 }
 
 #pragma mark - 初始化一些控件
-- (void)commonInit
-{
+- (void)commonInit {
     
     /**
      *  默认的标签类型(编辑)
@@ -208,7 +210,7 @@
         /**
          *  标签所在的view(UIScrollView)
          */
-        UIScrollView* sv = [[UIScrollView alloc] initWithFrame:self.bounds];
+        UIScrollView *sv = [[UIScrollView alloc] initWithFrame:self.bounds];
         sv.contentSize = sv.frame.size;
         self.changeHeight = sv.contentSize.height;
         sv.indicatorStyle = UIScrollViewIndicatorStyleDefault;
@@ -246,18 +248,19 @@
     
       switch (_type) {
         case TTTagView_Type_Edit: {
+            
             return _tagStrings;
         }
             break;
         case TTTagView_Type_Display: {
-//            return nil;
+            
             return _tagStrings;
         }
             break;
         case TTTagView_Type_Selected: {
             
             [_tagStringsSelected removeAllObjects];
-            for (TTCheckBoxButton* button in _tagButtons) {
+            for (TTCheckBoxButton *button in _tagButtons) {
                 if (button.selected) {
                     [_tagStringsSelected addObject:button.titleLabel.text];
                     break;
@@ -276,92 +279,97 @@
 }
 
 #pragma mark - 对标签进行重新布局
--(void)layoutTagviews {
+- (void)layoutTagviews {
     
     self.isFirst = YES;
     if (self.selectedBtn != nil) {
         [self.selectedBtn setSelected:NO];
     }
-    float oldContentHeight=_svContainer.contentSize.height;
-    float offsetX=_tagPaddingSize.width,offsetY=_tagPaddingSize.height;
-    for (int i=0; i<_tagButtons.count; i++) {
-        TTCheckBoxButton* tagButton=_tagButtons[i];
-        CGRect frame=tagButton.frame;
+    
+    float oldContentHeight = _svContainer.contentSize.height;
+    float offsetX = _tagPaddingSize.width,offsetY = _tagPaddingSize.height;
+    for (int i = 0; i < _tagButtons.count; i ++) {
+        TTCheckBoxButton *tagButton = _tagButtons[i];
+        CGRect frame = tagButton.frame;
         self.isFirst = NO;
 
-            if ((offsetX+tagButton.frame.size.width+_tagPaddingSize.width)
-                <=_svContainer.contentSize.width) {
-                frame.origin.x=offsetX;
-                frame.origin.y=offsetY;
-                offsetX+=tagButton.frame.size.width+_tagPaddingSize.width;
-            }else if (i != 0) {
-                offsetX=_tagPaddingSize.width;
-                offsetY+=_tagHeight+_tagPaddingSize.height;
+            if ((offsetX + tagButton.frame.size.width + _tagPaddingSize.width) <= _svContainer.contentSize.width) {
                 
-                frame.origin.x=offsetX;
-                frame.origin.y=offsetY;
-                offsetX+=tagButton.frame.size.width+_tagPaddingSize.width;
+                frame.origin.x = offsetX;
+                frame.origin.y = offsetY;
+                offsetX += tagButton.frame.size.width + _tagPaddingSize.width;
+            }else if (i != 0) {
+                
+                offsetX = _tagPaddingSize.width;
+                offsetY += _tagHeight + _tagPaddingSize.height;
+                
+                frame.origin.x = offsetX;
+                frame.origin.y = offsetY;
+                offsetX += tagButton.frame.size.width + _tagPaddingSize.width;
             } else {
-                offsetX=_tagPaddingSize.width;
-                frame.origin.x=offsetX;
-                frame.origin.y=offsetY;
-                offsetX+=tagButton.frame.size.width+_tagPaddingSize.width;
+                
+                offsetX = _tagPaddingSize.width;
+                frame.origin.x = offsetX;
+                frame.origin.y = offsetY;
+                offsetX += tagButton.frame.size.width + _tagPaddingSize.width;
                 
             }
 
-        tagButton.frame=frame;
+        tagButton.frame = frame;
     }
-    _tfInput.hidden=(_type!=TTTagView_Type_Edit);
-    if (_type==TTTagView_Type_Edit) {
+    
+    _tfInput.hidden = (_type != TTTagView_Type_Edit);
+    if (_type == TTTagView_Type_Edit) {
         
-        _tfInput.font=_fontInput;
+        _tfInput.font = _fontInput;
         
         _tfInput.backgroundColor = _inputBgColor;
-        _tfInput.textColor=_inputTextColor;
+        _tfInput.textColor = _inputTextColor;
         [_tfInput setValue:_inputPlaceHolderTextColor forKeyPath:@"_placeholderLabel.textColor"];
-        _tfInput.layer.borderColor=_inputBorderColor.CGColor;
+        _tfInput.layer.borderColor = _inputBorderColor.CGColor;
         
         _tfInput.layer.cornerRadius = _tfInput.frame.size.height * 0.5f;
-        _tfInput.layer.borderWidth=1;
+        _tfInput.layer.borderWidth = 1;
         {
-            CGRect frame=_tfInput.frame;
+            CGRect frame = _tfInput.frame;
             frame.size.width = [_tfInput.text sizeWithAttributes:@{NSFontAttributeName:_fontInput}].width + _tfInput.layer.cornerRadius * 2.0f + _textPaddingSize.width * 2.0;
-            frame.size.width=MAX(frame.size.width, _tagWidht);
-            _tfInput.frame=frame;
+            frame.size.width = MAX(frame.size.width, _tagWidht);
+            _tfInput.frame = frame;
         }
-        CGRect frame=_tfInput.frame;
+        CGRect frame = _tfInput.frame;
 
-            if ((offsetX+_tfInput.frame.size.width+_tagPaddingSize.width)
-                <=_svContainer.contentSize.width) {
-                frame.origin.x=offsetX;
-                frame.origin.y=offsetY;
+            if ((offsetX + _tfInput.frame.size.width + _tagPaddingSize.width) <= _svContainer.contentSize.width) {
+                frame.origin.x = offsetX;
+                frame.origin.y = offsetY;
             }else if (!self.isFirst) {
-                offsetX=_tagPaddingSize.width;
-                offsetY+=_tagHeight+_tagPaddingSize.height;
                 
-                frame.origin.x=offsetX;
-                frame.origin.y=offsetY;
+                offsetX = _tagPaddingSize.width;
+                offsetY += _tagHeight + _tagPaddingSize.height;
+                
+                frame.origin.x = offsetX;
+                frame.origin.y = offsetY;
             } else {
-                offsetX=_tagPaddingSize.width;
-                frame.origin.x=offsetX;
-                frame.origin.y=offsetY;
+                
+                offsetX = _tagPaddingSize.width;
+                frame.origin.x = offsetX;
+                frame.origin.y = offsetY;
             }
-        _tfInput.frame=frame;
+        _tfInput.frame = frame;
         
     }
     
-    _svContainer.contentSize=CGSizeMake(_svContainer.contentSize.width, offsetY+_tagHeight+_tagPaddingSize.height);
+    _svContainer.contentSize = CGSizeMake(_svContainer.contentSize.width, offsetY + _tagHeight + _tagPaddingSize.height);
     {
-        CGRect frame=_svContainer.frame;
-        frame.size.height=_svContainer.contentSize.height;
-        frame.size.height=MIN(frame.size.height, _viewMaxHeight);
-        _svContainer.frame=frame;
+        CGRect frame = _svContainer.frame;
+        frame.size.height = _svContainer.contentSize.height;
+        frame.size.height = MIN(frame.size.height, _viewMaxHeight);
+        _svContainer.frame = frame;
     }
     
     {
-        CGRect frame=self.frame;
-        frame.size.height=_svContainer.frame.size.height;
-        self.frame=frame;
+        CGRect frame = self.frame;
+        frame.size.height = _svContainer.frame.size.height;
+        self.frame = frame;
     }
 
     if (oldContentHeight != _svContainer.contentSize.height) {
@@ -414,8 +422,8 @@
 #pragma mark action 添加标签
 
 - (void)addTags:(NSArray *)tags {
-    for (NSString *tag in tags)
-    {
+    
+    for (NSString *tag in tags) {
         [self addTagToLast:tag];
     }
     
@@ -469,7 +477,7 @@
     NSArray *result = [_tagStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %@", tag]];
     if (result) {
         
-        NSInteger index=[_tagStrings indexOfObject:tag];
+        NSInteger index = [_tagStrings indexOfObject:tag];
         [_tagStrings removeObjectAtIndex:index];
         [_tagButtons[index] removeFromSuperview];
         [_tagButtons removeObjectAtIndex:index];
@@ -480,7 +488,7 @@
 }
 
 #pragma mark - 删除标签
--(void)handlerButtonAction:(TTCheckBoxButton*)tagButton {
+- (void)handlerButtonAction:(TTCheckBoxButton*)tagButton {
     
     switch (_type) {
         case TTTagView_Type_Edit:
@@ -501,14 +509,10 @@
             break;
         case TTTagView_Type_Selected:
         {
-//            if (tagButton.selected) {
-//                tagButton.selected = NO;
-//            } else {
-                for (TTCheckBoxButton *button in _tagButtons) {
-                    button.selected = NO;
-                }
-                tagButton.selected = YES;
-//            }
+            for (TTCheckBoxButton *button in _tagButtons) {
+                button.selected = NO;
+            }
+            tagButton.selected = YES;
         }
             break;
         default:
@@ -524,22 +528,23 @@
 #pragma mark UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-    if (!textField.text
-        || [textField.text isEqualToString:@""]) {
+    if (!textField.text || [textField.text isEqualToString:@""]) {
         return NO;
     }
+    
     if ([textField.text containsString:@" "]) {
         textField.text = [textField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
         return NO;
     }
+    
     [self addTagToLast:textField.text];
-    textField.text=nil;
+    textField.text = nil;
     [self layoutTagviews];
     return NO;
 }
 
 #pragma mark - 这里限制标签的字数为18
--(void)textFieldDidFinishChange:(UITextField*)textField {
+- (void)textFieldDidFinishChange:(UITextField*)textField {
     
     NSString *lang = [[textField textInputMode] primaryLanguage]; // 键盘输入模式
     if ([lang isEqualToString:@"zh-Hans"]) { // 简体中文输入，包括简体拼音，健体五笔，简体手写
@@ -548,13 +553,13 @@
         UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
         // 没有高亮选择的字，则对已输入的文字进行字数统计和限制
         if (!position) {
+            
             if (textField.text.length > 18) {
                 textField.text = [textField.text substringToIndex:18];
             }
         }
-    }
-    // 中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
-    else{
+    } else { // 中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
+        
         if (textField.text.length > 18) {
             textField.text = [textField.text substringToIndex:18];
         }
@@ -573,7 +578,7 @@
     CGRect frame = _tfInput.frame;
     frame.size.width = [textField.text sizeWithAttributes:@{NSFontAttributeName:_fontInput}].width + (_tfInput.layer.cornerRadius * 2.0f);
     frame.size.width = MAX(frame.size.width, _tagWidht);
-    if (frame.size.width + _tagPaddingSize.width*2 >= _svContainer.width - 30) {
+    if (frame.size.width + _tagPaddingSize.width * 2 >= _svContainer.width - 30) {
 
         if (string2.length < textField.text.length) {
             
@@ -619,17 +624,19 @@
 }
 
 - (BOOL)canPerformAction:(SEL)selector withSender:(id)sender {
+    
     if (selector == @selector(deleteItemClicked:)) {
         return YES;
     }
     return NO;
 }
 
-- (BOOL) canBecomeFirstResponder {
+- (BOOL)canBecomeFirstResponder {
+    
     return YES;
 }
 
--(void)handlePan:(UIPanGestureRecognizer *)recognizer {
+- (void)handlePan:(UIPanGestureRecognizer *)recognizer {
     
     [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
     if (self.selectedBtn != nil) {
@@ -650,10 +657,10 @@
     
     _type = type;
     switch (_type) {
+            
         case TTTagView_Type_Edit:
         {
             for (UIButton* button in _tagButtons) {
-//                button.selected = YES;
                 button.selected = NO;
             }
         }
@@ -661,7 +668,6 @@
         case TTTagView_Type_Display:
         {
             for (UIButton *button in _tagButtons) {
-//                button.selected = YES;
                 button.selected = NO;
             }
         }
@@ -696,7 +702,8 @@
 }
 
 
--(void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected {
+- (void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected {
+    
     _tagStringsSelected=tagStringsSelected;
     switch (_type) {
             
@@ -717,6 +724,7 @@
 
 #pragma mark - 从控制器传进来的需要被删除的标签
 - (void)setDeleteString:(NSString *)deleteString {
+    
     if (_deleteString != deleteString) {
         _deleteString = deleteString;
     }

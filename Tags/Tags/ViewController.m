@@ -264,7 +264,7 @@
     
     TTGroupTagView *tagView = [[TTGroupTagView alloc] initWithFrame:rect];
     tagView.tag = indexPath.section + 1000;
-    tagView.translatesAutoresizingMaskIntoConstraints=YES;
+    tagView.translatesAutoresizingMaskIntoConstraints = YES;
     tagView.delegate = self;
     tagView.changeHeight = 0;
     tagView.backgroundColor = [UIColor clearColor];

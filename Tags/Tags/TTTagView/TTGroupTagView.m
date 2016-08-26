@@ -22,7 +22,9 @@
 
 
 @implementation TTTagViewCheckBoxButton
--(void)setSelected:(BOOL)selected{
+
+- (void)setSelected:(BOOL)selected {
+    
     [super setSelected:selected];
     if (selected) {
         [self setBackgroundColor:_selColorBg];
@@ -37,20 +39,24 @@
     }
     [self setNeedsDisplay];
 }
+
 @end
 
 @interface SMTextField : UITextField
 
 @end
+
 @implementation SMTextField
 
 // 设置占位文本的位置
 - (CGRect)textRectForBounds:(CGRect)bounds {
+    
     return CGRectInset( bounds , 12.5 , 0 );
 }
 
 // 设置文本的位置
 - (CGRect)editingRectForBounds:(CGRect)bounds {
+    
     return CGRectInset( bounds , 12.5 , 0 );
 }
 
@@ -61,11 +67,17 @@
 
 @property (nonatomic, strong) UIScrollView* svContainer;
 
-// 标签按钮的数组
+/**
+ *  标签按钮的数组
+ */
 @property (nonatomic, strong) NSMutableArray *tagButtons;
-// 用来记录标签上边的文本
+/**
+ *  用来记录标签上边的文本
+ */
 @property (nonatomic, strong) NSMutableArray *tagStrings;
-// 标记被选中的标签
+/**
+ *  标记被选中的标签
+ */
 @property (nonatomic, strong) NSMutableArray *tagStringsSelected;
 
 @end
@@ -83,13 +95,13 @@
 
 @end
 
-@implementation TTGroupTagView
-{
+@implementation TTGroupTagView {
+    
     NSInteger _editingTagIndex;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self commonInit];
@@ -97,8 +109,8 @@
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
+    
     self = [super initWithFrame:frame];
     if (self) {
         [self commonInit];
@@ -108,8 +120,7 @@
 
 
 
-- (void)commonInit
-{
+- (void)commonInit {
     
     // 默认的标签宽度
     _tagWidht = 80;
@@ -157,7 +168,7 @@
 }
 
 
--(NSMutableArray *)tagStrings{
+- (NSMutableArray *)tagStrings {
     
     return _tagStrings;
 }
@@ -166,47 +177,48 @@
 - (void)layoutTags {
     
     self.isFirst = YES;
-    float oldContentHeight=_svContainer.contentSize.height;
-    float offsetX=_tagPaddingSize.width,offsetY=_tagPaddingSize.height;
-    for (int i=0; i<_tagButtons.count; i++) {
-        TTTagViewCheckBoxButton* tagButton=_tagButtons[i];
-        CGRect frame=tagButton.frame;
+    float oldContentHeight = _svContainer.contentSize.height;
+    float offsetX = _tagPaddingSize.width,offsetY = _tagPaddingSize.height;
+    for (int i = 0; i < _tagButtons.count; i ++) {
+        TTTagViewCheckBoxButton *tagButton = _tagButtons[i];
+        CGRect frame = tagButton.frame;
         self.isFirst = NO;
         
-        if ((offsetX+tagButton.frame.size.width+_tagPaddingSize.width)
-            <=kScreenWidth) {
-            frame.origin.x=offsetX;
-            frame.origin.y=offsetY;
-            offsetX+=tagButton.frame.size.width+_tagPaddingSize.width;
-        }else if (i != 0) {
-            offsetX=_tagPaddingSize.width;
-            offsetY+=_tagHeight+_tagPaddingSize.height;
+        if ((offsetX + tagButton.frame.size.width + _tagPaddingSize.width) <= kScreenWidth) {
+            frame.origin.x = offsetX;
+            frame.origin.y = offsetY;
+            offsetX += tagButton.frame.size.width + _tagPaddingSize.width;
             
-            frame.origin.x=offsetX;
-            frame.origin.y=offsetY;
-            offsetX+=tagButton.frame.size.width+_tagPaddingSize.width;
+        } else if (i != 0) {
+            offsetX = _tagPaddingSize.width;
+            offsetY += _tagHeight + _tagPaddingSize.height;
+            
+            frame.origin.x = offsetX;
+            frame.origin.y = offsetY;
+            offsetX += tagButton.frame.size.width + _tagPaddingSize.width;
+            
         } else {
-            offsetX=_tagPaddingSize.width;
-            frame.origin.x=offsetX;
-            frame.origin.y=offsetY;
-            offsetX+=tagButton.frame.size.width+_tagPaddingSize.width;
+            offsetX = _tagPaddingSize.width;
+            frame.origin.x = offsetX;
+            frame.origin.y = offsetY;
+            offsetX += tagButton.frame.size.width + _tagPaddingSize.width;
             
         }
         
         tagButton.frame=frame;
     }
     
-    _svContainer.contentSize=CGSizeMake(_svContainer.contentSize.width, offsetY+_tagHeight+_tagPaddingSize.height);
+    _svContainer.contentSize = CGSizeMake(_svContainer.contentSize.width, offsetY + _tagHeight + _tagPaddingSize.height);
     {
-        CGRect frame=_svContainer.frame;
-        frame.size.height=_svContainer.contentSize.height;
-        frame.size.height=MIN(frame.size.height, _viewMaxHeight);
-        _svContainer.frame=frame;
+        CGRect frame = _svContainer.frame;
+        frame.size.height = _svContainer.contentSize.height;
+        frame.size.height = MIN(frame.size.height, _viewMaxHeight);
+        _svContainer.frame = frame;
     }
     {
-        CGRect frame=self.frame;
-        frame.size.height=_svContainer.frame.size.height;
-        self.frame=frame;
+        CGRect frame = self.frame;
+        frame.size.height = _svContainer.frame.size.height;
+        self.frame = frame;
     }
 
     if (oldContentHeight != _svContainer.contentSize.height) {
@@ -219,19 +231,19 @@
 }
 
 // 添加标签按钮
-- (TTTagViewCheckBoxButton *)tagButtonWithTag:(NSString *)tag
-{
+- (TTTagViewCheckBoxButton *)tagButtonWithTag:(NSString *)tag {
+    
     TTTagViewCheckBoxButton *tagBtn = [[TTTagViewCheckBoxButton alloc] init];
     
-    tagBtn.colorBg=_bgColor;
-    tagBtn.colorText=_textColor;
+    tagBtn.colorBg = _bgColor;
+    tagBtn.colorText = _textColor;
     tagBtn.borderColor = _borderColor;
     
     tagBtn.selColorBg = _selBgColor;
     tagBtn.selColorText = _selTextColor;
     tagBtn.selBorderColor = _selBorderColor;
     
-    tagBtn.selected=NO;
+    tagBtn.selected = NO;
     [tagBtn.titleLabel setFont:_fontTag];
     [tagBtn addTarget:self action:@selector(handlerTagButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
     [tagBtn setTitle:tag forState:UIControlStateNormal];
@@ -241,7 +253,7 @@
     
     btnFrame.size.width = [tagBtn.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:_fontTag}].width + (tagBtn.layer.cornerRadius * 2.0f);
     
-    tagBtn.frame=btnFrame;
+    tagBtn.frame = btnFrame;
     return tagBtn;
 }
 /**
@@ -249,8 +261,8 @@
  *
  *  @param sender 选中 <-> 未选中 之间的转换
  */
-- (void)handlerTagButtonEvent:(TTTagViewCheckBoxButton*)sender
-{
+- (void)handlerTagButtonEvent:(TTTagViewCheckBoxButton*)sender {
+    
     BOOL isSelected = sender.selected;
     sender.selected = !sender.selected;
     if ([self.delegate respondsToSelector:@selector(buttonClick:and:)]) {
@@ -260,9 +272,9 @@
 }
 
 #pragma mark - 添加标签
-- (void)addTags:(NSArray *)tags{
-    for (NSString *tag in tags)
-    {
+- (void)addTags:(NSArray *)tags {
+    
+    for (NSString *tag in tags) {
         [self addTagToLast:tag];
     }
     
@@ -270,13 +282,13 @@
     
 }
 
-- (void)addTagToLast:(NSString *)tag{
+- (void)addTagToLast:(NSString *)tag {
+    
     NSArray *result = [_tagStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %@", tag]];
-    if (result.count == 0)
-    {
+    if (result.count == 0) {
         [_tagStrings addObject:tag];
         
-        TTTagViewCheckBoxButton* tagButton=[self tagButtonWithTag:tag];
+        TTTagViewCheckBoxButton* tagButton = [self tagButtonWithTag:tag];
         [_svContainer addSubview:tagButton];
         [_tagButtons addObject:tagButton];
 
@@ -285,14 +297,15 @@
 }
 
 #pragma mark setter方法
--(void)setBackgroundColor:(UIColor *)backgroundColor{
+- (void)setBackgroundColor:(UIColor *)backgroundColor {
+    
     [super setBackgroundColor:backgroundColor];
-    _svContainer.backgroundColor=backgroundColor;
+    _svContainer.backgroundColor = backgroundColor;
 }
 
--(void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected{
+- (void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected {
     
-    _tagStringsSelected=tagStringsSelected;
+    _tagStringsSelected = tagStringsSelected;
     
     for (NSString *str in tagStringsSelected) {
         for (int i = 0; i < self.tagStrings.count; i ++) {
