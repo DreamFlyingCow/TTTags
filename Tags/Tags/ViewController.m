@@ -354,11 +354,15 @@
 #pragma mark - 上边的输入标签, 输入完成之后, 遍历下边的固定标签, 看是否有相同的, 如果有相同的, 就修改其状态(这里也包括刚进入这个页面的时候从上个页面传进来的标签)
 - (void)finishInput:(NSString *)string {
     
+    self.selectedTags = inputTagView.tagStrings;
+//    [self.selectedTags addObject:string];
+    
     NSMutableArray *arr = [NSMutableArray array];
     
     for (int j = 0; j < self.dataArr.count; j ++) {
         NSArray *lists = self.dataArr[j];
         NSArray *result = [lists filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %@", string]];
+        
         
         if (result.count != 0) {
             [arr addObject:string];

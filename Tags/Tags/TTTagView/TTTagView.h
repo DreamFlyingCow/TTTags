@@ -136,5 +136,8 @@ typedef enum {
 /**
  *  刷新输入视图的布局
  */
--(void)layoutTagviews;
+- (void)layoutTagviews;
+
+- (NSMutableArray *)tagStrings;
+
 @end
