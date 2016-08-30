@@ -252,11 +252,7 @@
             return _tagStrings;
         }
             break;
-        case TTTagView_Type_Display: {
-            
-            return _tagStrings;
-        }
-            break;
+
         case TTTagView_Type_Selected: {
             
             [_tagStringsSelected removeAllObjects];
@@ -287,7 +283,7 @@
     }
     
     float oldContentHeight = _svContainer.contentSize.height;
-    float offsetX = _tagPaddingSize.width,offsetY = _tagPaddingSize.height;
+    float offsetX = _tagPaddingSize.width,  offsetY = _tagPaddingSize.height;
     for (int i = 0; i < _tagButtons.count; i ++) {
         TTCheckBoxButton *tagButton = _tagButtons[i];
         CGRect frame = tagButton.frame;
@@ -403,7 +399,7 @@
     tagBtn.layer.cornerRadius = btnFrame.size.height * 0.5f;
     btnFrame.size.width = [tagBtn.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:_fontTag}].width + (tagBtn.layer.cornerRadius * 2.0f);
     
-    tagBtn.frame=btnFrame;
+    tagBtn.frame = btnFrame;
     return tagBtn;
 }
 
@@ -488,12 +484,11 @@
 }
 
 #pragma mark - 删除标签
-- (void)handlerButtonAction:(TTCheckBoxButton*)tagButton {
+- (void)handlerButtonAction:(TTCheckBoxButton *)tagButton {
     
     switch (_type) {
-        case TTTagView_Type_Edit:
-        {
-            [self becomeFirstResponder];
+        case TTTagView_Type_Edit: {
+            
             _editingTagIndex = [_tagButtons indexOfObject:tagButton];
             CGRect buttonFrame = tagButton.frame;
             buttonFrame.size.height -= 5;
@@ -507,16 +502,15 @@
             [menuController setMenuVisible:YES animated:YES];
         }
             break;
-        case TTTagView_Type_Selected:
-        {
+        case TTTagView_Type_Selected: {
+            
             for (TTCheckBoxButton *button in _tagButtons) {
                 button.selected = NO;
             }
             tagButton.selected = YES;
         }
             break;
-        default:
-        {
+        default: {
             
         }
             break;
@@ -540,6 +534,7 @@
     [self addTagToLast:textField.text];
     textField.text = nil;
     [self layoutTagviews];
+    
     return NO;
 }
 
@@ -598,6 +593,8 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
+    _editingTagIndex = _tagStrings.count;
+    
     if (self.selectedBtn != nil) {
         [self.selectedBtn setSelected:NO];
         
@@ -614,11 +611,14 @@
 #pragma mark UIMenuController
 - (void)deleteItemClicked:(TTCheckBoxButton *)sender {
     
-    if ([self.delegate respondsToSelector:@selector(deleteBtnClick:)]) {
+    
+    if ([self.delegate respondsToSelector:@selector(deleteBtnClick:)] && _editingTagIndex < _tagStrings.count) {
+        
         [self.delegate deleteBtnClick:_tagStrings[_editingTagIndex]];
     }
     
-    if (![_tfInput isEditing]) {
+    if (![_tfInput isEditing] && _editingTagIndex < _tagStrings.count) {
+        
         [self removeTag:_tagStrings[_editingTagIndex]];
     }
 }
@@ -658,29 +658,22 @@
     _type = type;
     switch (_type) {
             
-        case TTTagView_Type_Edit:
-        {
+        case TTTagView_Type_Edit: {
+            
             for (UIButton* button in _tagButtons) {
                 button.selected = NO;
             }
         }
             break;
-        case TTTagView_Type_Display:
-        {
-            for (UIButton *button in _tagButtons) {
-                button.selected = NO;
-            }
-        }
-            break;
-        case TTTagView_Type_Selected:
-        {
+            
+        case TTTagView_Type_Selected: {
+            
             for (UIButton *button in _tagButtons) {
                 button.selected = [_tagStringsSelected containsObject:button.titleLabel.text];
             }
         }
             break;
-        default:
-        {
+        default: {
             
         }
             break;
@@ -704,18 +697,17 @@
 
 - (void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected {
     
-    _tagStringsSelected=tagStringsSelected;
+    _tagStringsSelected = tagStringsSelected;
     switch (_type) {
             
-        case TTTagView_Type_Selected:
-        {
+        case TTTagView_Type_Selected: {
+            
             for (UIButton *button in _tagButtons) {
                 button.selected = [tagStringsSelected containsObject:button.titleLabel.text];
             }
         }
             break;
-        default:
-        {
+        default: {
             
         }
             break;

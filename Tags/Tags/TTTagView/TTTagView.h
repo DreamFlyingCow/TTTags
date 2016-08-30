@@ -32,8 +32,6 @@
 typedef enum {
     // 编辑状态
     TTTagView_Type_Edit,
-    // 展示状态
-    TTTagView_Type_Display,
     // 选中状态
     TTTagView_Type_Selected
     

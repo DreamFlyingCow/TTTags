@@ -320,6 +320,7 @@
 // 点击下边的固定标签列表, 对应上边的标签是删除还是添加(通过这个代理方法实现)
 - (void)buttonClick:(NSString *)string and:(BOOL)isDelete {
     
+    [inputTagView endEditing:YES];
     if (isDelete) {// 删除
         
         inputTagView.deleteString = string;
@@ -354,7 +355,7 @@
 #pragma mark - 上边的输入标签, 输入完成之后, 遍历下边的固定标签, 看是否有相同的, 如果有相同的, 就修改其状态(这里也包括刚进入这个页面的时候从上个页面传进来的标签)
 - (void)finishInput:(NSString *)string {
     
-    self.selectedTags = inputTagView.tagStrings;
+    self.selectedTags = [inputTagView.tagStrings mutableCopy];
 //    [self.selectedTags addObject:string];
     
     NSMutableArray *arr = [NSMutableArray array];
