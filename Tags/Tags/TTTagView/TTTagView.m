@@ -522,6 +522,8 @@
 #pragma mark UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"endEditing" object:nil];
+    
     if (!textField.text || [textField.text isEqualToString:@""]) {
         return NO;
     }
@@ -593,6 +595,8 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"willEditing" object:nil];
     _editingTagIndex = _tagStrings.count;
     
     if (self.selectedBtn != nil) {

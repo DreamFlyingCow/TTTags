@@ -416,12 +416,35 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEditing) name:@"willEditing" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endEditing) name:@"endEditing" object:nil];
+    
+}
+
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"willEditing" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"endEditing" object:nil];
     
     [inputTagView removeObserver:self forKeyPath:@"changeHeight"];
 }
 
+- (void)willEditing {
+    
+    NSLog(@"willEditing");
+    
+}
+
+- (void)endEditing {
+    
+    NSLog(@"endEditing");
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
