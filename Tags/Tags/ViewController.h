@@ -8,9 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@class ViewController;
+
+@protocol ViewControllerDelegate <NSObject>
+@optional
+
+- (void)updateTagsLabelWithTagsString:(NSString *)tags;
+
+@end
+
 @interface ViewController : UIViewController
 
 @property (nonatomic ,strong)NSString *bqlabStr;
+
+@property (weak, nonatomic) id <ViewControllerDelegate> delegate;
 
 
 @end

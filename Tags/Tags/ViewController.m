@@ -86,6 +86,7 @@
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     self.inputHeight = 50;
     self.view.backgroundColor = kCOLOR(245);
@@ -107,7 +108,32 @@
         [inputTagView addTags:self.selectedTags];
     }
     
+    [self addNavBarRightButton];
+    
+    
 }
+
+#pragma mark - 添加一个导航栏右侧的确定按钮
+- (void)addNavBarRightButton {
+    
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [btn setTitle:@"确定" forState:UIControlStateNormal];
+    [btn setTitleColor:kRandomColor forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(didFinishBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
+}
+
+#pragma mark - 确定按钮的点击事件
+- (void)didFinishBtnClick:(UIButton *)btn {
+    
+    NSString *tags = [self.selectedTags componentsJoinedByString:@" "];
+    if ([self.delegate respondsToSelector:@selector(updateTagsLabelWithTagsString:)]) {
+        [self.delegate updateTagsLabelWithTagsString:tags];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 #pragma mark - 获取顾客标签的列表
 - (void)setData {
@@ -116,7 +142,6 @@
     [self.tableView reloadData];
     
 }
-
 
 #pragma mark - 加载子视图
 - (void)addSubviews {
@@ -165,6 +190,7 @@
     
 }
 
+#pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataArr.count;
 }
@@ -186,6 +212,7 @@
     
 }
 
+#pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (self.heightArr.count > 0) {
@@ -279,9 +306,6 @@
         
     }
     
-    
-    
-    
     if (self.dataArr.count > 0) {
         [tagView addTags:self.dataArr[indexPath.section]];
     }
@@ -328,7 +352,7 @@
     } else {// 添加
         
         [inputTagView addTags:@[string]];
-        [self.selectedTags addObject:string];
+//        [self.selectedTags addObject:string];
     }
 }
 
@@ -356,8 +380,6 @@
 - (void)finishInput:(NSString *)string {
     
     self.selectedTags = [inputTagView.tagStrings mutableCopy];
-//    [self.selectedTags addObject:string];
-    
     NSMutableArray *arr = [NSMutableArray array];
     
     for (int j = 0; j < self.dataArr.count; j ++) {
@@ -422,6 +444,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEditing) name:@"willEditing" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endEditing) name:@"endEditing" object:nil];
     
+    
 }
 
 
@@ -434,12 +457,15 @@
     [inputTagView removeObserver:self forKeyPath:@"changeHeight"];
 }
 
+#pragma mark - 这里是通知传过来的方法
+// 这个是textField将要编辑的时候调用
 - (void)willEditing {
     
     NSLog(@"willEditing");
     
 }
 
+// 这个是textField结束编辑的时候调用
 - (void)endEditing {
     
     NSLog(@"endEditing");
