@@ -434,6 +434,7 @@
 }
 
 - (void)addTagToLast:(NSString *)tag {
+    
     NSArray *result = [_tagStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %@", tag]];
     if (result.count == 0) {
         [_tagStrings addObject:tag];
@@ -726,7 +727,6 @@
     }
     
     [self removeTag:deleteString];
-    
 }
 
 @end

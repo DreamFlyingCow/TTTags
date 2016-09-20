@@ -121,7 +121,6 @@
     [btn setTitleColor:kRandomColor forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(didFinishBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    
 }
 
 #pragma mark - 确定按钮的点击事件
@@ -140,7 +139,6 @@
     
     self.dataArr = [NSMutableArray arrayWithArray:@[@[@"1", @"22", @"哈哈", @"我是标签", @"我也可以换行"], @[@"333", @"4444"], @[@"55555", @"666666"], @[@"11", @"222"], @[@"3333", @"44444"], @[@"555555", @"6666666"], @[@"111", @"2222"], @[@"33333", @"444444"], @[@"5555555", @"66666666"]]];
     [self.tableView reloadData];
-    
 }
 
 #pragma mark - 加载子视图
@@ -347,8 +345,8 @@
     [inputTagView endEditing:YES];
     if (isDelete) {// 删除
         
-        inputTagView.deleteString = string;
         [self.selectedTags removeObject:string];
+        inputTagView.deleteString = string;
     } else {// 添加
         
         [inputTagView addTags:@[string]];
@@ -385,7 +383,6 @@
     for (int j = 0; j < self.dataArr.count; j ++) {
         NSArray *lists = self.dataArr[j];
         NSArray *result = [lists filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %@", string]];
-        
         
         if (result.count != 0) {
             [arr addObject:string];
