@@ -39,7 +39,7 @@ typedef enum {
 
 @interface TTTagView : UIView
 
-@property (nonatomic, strong) id <TTTagViewDelegate> delegate;
+@property (nonatomic, weak) id <TTTagViewDelegate> delegate;
 /**
  *  此属性是为了KVO监测上边输入框的高度变化
  */

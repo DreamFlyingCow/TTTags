@@ -350,7 +350,6 @@
     } else {// 添加
         
         [inputTagView addTags:@[string]];
-//        [self.selectedTags addObject:string];
     }
 }
 
@@ -466,6 +465,11 @@
 - (void)endEditing {
     
     NSLog(@"endEditing");
+    
+}
+
+- (void)dealloc {
+    
     
 }
 

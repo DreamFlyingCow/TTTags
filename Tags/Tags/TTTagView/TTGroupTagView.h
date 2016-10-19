@@ -24,7 +24,7 @@
 
 @interface TTGroupTagView : UIView
 
-@property (nonatomic, strong) id <TTGroupTagViewDelegate> delegate;
+@property (nonatomic, weak) id <TTGroupTagViewDelegate> delegate;
 
 @property (assign, nonatomic) CGFloat changeHeight;
 
