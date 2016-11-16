@@ -19,11 +19,11 @@
 @implementation TTViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     self.view.backgroundColor = kRandomColor;
     self.title = @"首页";
     [self addOneButton];
-    
 }
 
 - (void)addOneButton {
@@ -45,9 +45,7 @@
     _tags.textAlignment = NSTextAlignmentCenter;
     _tags.numberOfLines = 0;
     [self.view addSubview:_tags];
-    
 }
-
 
 - (void)buttonClick:(UIButton *)btn {
     
@@ -64,8 +62,6 @@
     _tags.text = tags;
     
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     
