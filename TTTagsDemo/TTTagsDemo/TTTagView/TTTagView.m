@@ -36,7 +36,6 @@
 
 @end
 
-
 @implementation TTCheckBoxButton
 
 - (void)setSelected:(BOOL)selected {
@@ -81,7 +80,6 @@
 
 @end
 
-
 @interface TTTagView() <UITextFieldDelegate>
 
 /**
@@ -125,7 +123,6 @@
     // 正在编辑的标签的下标
     NSInteger _editingTagIndex;
 }
-
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     
@@ -242,7 +239,6 @@
         [self addGestureRecognizer:_gestureRecognizer];
     }
 }
-
 
 - (NSMutableArray *)tagStrings {
     
@@ -415,8 +411,8 @@
     [self.selectedBtn setSelected:YES];
     
 }
-#pragma mark action 添加标签
 
+#pragma mark action 添加标签
 - (void)addTags:(NSArray *)tags {
     
     for (NSString *tag in tags) {
@@ -424,7 +420,6 @@
     }
     
     [self layoutTagviews];
-    
 }
 
 - (void)addTags:(NSArray *)tags selectedTags:(NSArray*)selectedTags {
@@ -518,9 +513,7 @@
         }
             break;
     }
-
 }
-
 
 #pragma mark UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -567,7 +560,6 @@
     [self layoutTagviews];
 }
 
-
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     // 标签中限制其输入空格
@@ -593,7 +585,6 @@
     } else {
         return YES;
     }
-    
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -688,7 +679,6 @@
     [self layoutTagviews];
 }
 
-
 - (void)setBgColor:(UIColor *)bgColor {
     
     if (_bgColor == nil) {
@@ -698,9 +688,7 @@
     for (TTCheckBoxButton *button in _tagButtons) {
         button.colorBg = bgColor;
     }
-    
 }
-
 
 - (void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected {
     

@@ -20,7 +20,6 @@
 
 @end
 
-
 @implementation TTTagViewCheckBoxButton
 
 - (void)setSelected:(BOOL)selected {
@@ -28,14 +27,14 @@
     [super setSelected:selected];
     if (selected) {
         [self setBackgroundColor:_selColorBg];
-        self.layer.borderColor=_selBorderColor.CGColor;
-        self.layer.borderWidth=1;
+        self.layer.borderColor = _selBorderColor.CGColor;
+        self.layer.borderWidth = 1;
         [self setTitleColor:_selColorText forState:UIControlStateSelected];
     } else {
-        [self setBackgroundColor:_borderColor];
-        self.layer.borderColor=_colorText.CGColor;
-        self.layer.borderWidth=1;
-        [self setTitleColor:_colorBg forState:UIControlStateNormal];
+        [self setBackgroundColor:_colorBg];
+        self.layer.borderColor = _borderColor.CGColor;
+        self.layer.borderWidth = 1;
+        [self setTitleColor:_colorText forState:UIControlStateNormal];
     }
     [self setNeedsDisplay];
 }
@@ -61,7 +60,6 @@
 }
 
 @end
-
 
 @interface TTGroupTagView()
 
@@ -90,9 +88,6 @@
  *  是否是第一行
  */
 @property (assign, nonatomic) BOOL isFirst;
-
-
-
 @end
 
 @implementation TTGroupTagView {
@@ -118,7 +113,10 @@
     return self;
 }
 
-
+- (NSMutableArray *)tagStrings {
+    
+    return _tagStrings;
+}
 
 - (void)commonInit {
     
@@ -139,7 +137,6 @@
     _borderColor = kColorRGB(0xffffff);
     _selBorderColor = kColorRGB(0xffae00);
     
-    
     _viewMaxHeight = MAXFLOAT;
     self.backgroundColor = kColorRGB(0xffffff);
     
@@ -150,7 +147,6 @@
     _tagStringsSelected = [NSMutableArray new];
     
     {
-        
         // 标签所在的view(UIScrollView)
         UIScrollView *sv = [[UIScrollView alloc] initWithFrame:self.bounds];
         sv.contentSize = sv.frame.size;
@@ -164,13 +160,6 @@
         [self addSubview:sv];
         _svContainer = sv;
     }
-    
-}
-
-
-- (NSMutableArray *)tagStrings {
-    
-    return _tagStrings;
 }
 
 #pragma mark - 对标签视图重新布局
@@ -227,7 +216,6 @@
     }
     
     self.changeHeight = _svContainer.frame.size.height;
-    
 }
 
 // 添加标签按钮
@@ -254,8 +242,10 @@
     btnFrame.size.width = [tagBtn.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:_fontTag}].width + (tagBtn.layer.cornerRadius * 2.0f);
     
     tagBtn.frame = btnFrame;
+    
     return tagBtn;
 }
+
 /**
  *  标签按钮的点击
  *
@@ -268,7 +258,6 @@
     if ([self.delegate respondsToSelector:@selector(buttonClick:and:)]) {
         [self.delegate buttonClick:sender.titleLabel.text and:isSelected];
     }
-    
 }
 
 #pragma mark - 添加标签
@@ -277,9 +266,7 @@
     for (NSString *tag in tags) {
         [self addTagToLast:tag];
     }
-    
     [self layoutTags];
-    
 }
 
 - (void)addTagToLast:(NSString *)tag {
@@ -316,7 +303,6 @@
             }
         }
     }
-    
 }
 
 - (void)setDeleteString:(NSString *)deleteString {
@@ -333,8 +319,5 @@
         }
     }
 }
-
-
-
 
 @end
