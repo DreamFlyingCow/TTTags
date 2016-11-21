@@ -18,12 +18,9 @@
 		8273D24D1DDC540100BC019D /* TTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8273D2401DDC540100BC019D /* TTViewController.m */; };
 		8273D24E1DDC540100BC019D /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 8273D2421DDC540100BC019D /* UIViewExt.m */; };
 		8273D24F1DDC540100BC019D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8273D2441DDC540100BC019D /* ViewController.m */; };
-		BBD223518A81F6DD3C63AAAB /* libPods-TTTagsDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4CF354CA9454552CBE61A1 /* libPods-TTTagsDemo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		46A555A1746E37939A99ECCE /* Pods-TTTagsDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTTagsDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-TTTagsDemo/Pods-TTTagsDemo.release.xcconfig"; sourceTree = "<group>"; };
-		4FD02C02D5EB272CEE9E96E5 /* Pods-TTTagsDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTTagsDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TTTagsDemo/Pods-TTTagsDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		8273D22F1DDC540100BC019D /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8273D2301DDC540100BC019D /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8273D2311DDC540100BC019D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -44,7 +41,6 @@
 		8273D2431DDC540100BC019D /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		8273D2441DDC540100BC019D /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		82E1AC2D1D615304000377A6 /* TTTagsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTTagsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		FB4CF354CA9454552CBE61A1 /* libPods-TTTagsDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TTTagsDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,22 +48,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBD223518A81F6DD3C63AAAB /* libPods-TTTagsDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		14DDBADFA72E150B1141B5D0 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4FD02C02D5EB272CEE9E96E5 /* Pods-TTTagsDemo.debug.xcconfig */,
-				46A555A1746E37939A99ECCE /* Pods-TTTagsDemo.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		8273D22E1DDC540100BC019D /* TTTagsDemo */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,8 +101,6 @@
 			children = (
 				8273D22E1DDC540100BC019D /* TTTagsDemo */,
 				82E1AC2E1D615304000377A6 /* Products */,
-				14DDBADFA72E150B1141B5D0 /* Pods */,
-				9F885FE9008D5C271E96FE49 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,14 +112,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9F885FE9008D5C271E96FE49 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				FB4CF354CA9454552CBE61A1 /* libPods-TTTagsDemo.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,12 +119,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 82E1AC441D615304000377A6 /* Build configuration list for PBXNativeTarget "TTTagsDemo" */;
 			buildPhases = (
-				F20EA47D04ECC7DF3AEED3FC /* [CP] Check Pods Manifest.lock */,
 				82E1AC291D615304000377A6 /* Sources */,
 				82E1AC2A1D615304000377A6 /* Frameworks */,
 				82E1AC2B1D615304000377A6 /* Resources */,
-				A322B283E566F212A0EB61F0 /* [CP] Embed Pods Frameworks */,
-				0A907087D9669D302C7186E0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -204,54 +177,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		0A907087D9669D302C7186E0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TTTagsDemo/Pods-TTTagsDemo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A322B283E566F212A0EB61F0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TTTagsDemo/Pods-TTTagsDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F20EA47D04ECC7DF3AEED3FC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		82E1AC291D615304000377A6 /* Sources */ = {
@@ -374,7 +299,6 @@
 		};
 		82E1AC451D615304000377A6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4FD02C02D5EB272CEE9E96E5 /* Pods-TTTagsDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/TTTagsDemo/TTPrefixHeader.pch";
@@ -388,7 +312,6 @@
 		};
 		82E1AC461D615304000377A6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46A555A1746E37939A99ECCE /* Pods-TTTagsDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/TTTagsDemo/TTPrefixHeader.pch";

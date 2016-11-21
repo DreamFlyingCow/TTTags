@@ -497,7 +497,9 @@
             // 自定义UIMenuController(删除按钮)
             UIMenuController *menuController = [UIMenuController sharedMenuController];
             UIMenuItem *resetMenuItem = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(deleteItemClicked:)];
-            NSAssert([self becomeFirstResponder], @"Sorry, UIMenuController will not work with %@ since it cannot become first responder", self);
+            [self becomeFirstResponder];
+            // 这里加上这句话之后, release版本的点击事件中删除按钮出不来............
+//            NSAssert([self becomeFirstResponder], @"Sorry, UIMenuController will not work with %@ since it cannot become first responder", self);
             [menuController setMenuItems:[NSArray arrayWithObject:resetMenuItem]];
             [menuController setTargetRect:buttonFrame inView:_svContainer];
             [menuController setMenuVisible:YES animated:YES];

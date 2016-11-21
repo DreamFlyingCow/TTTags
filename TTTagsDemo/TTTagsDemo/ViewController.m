@@ -150,12 +150,7 @@
     
     [self.view addSubview:textBgView];
     self.textBgView = textBgView;
-    [textBgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view);
-        make.left.equalTo(self.view);
-        make.right.equalTo(self.view);
-        make.height.equalTo([NSNumber numberWithFloat:self.inputHeight]);
-    }];
+    textBgView.frame = CGRectMake(0, 0, kScreenWidth, self.inputHeight);
     
     inputTagView = [[TTTagView alloc] initWithFrame:CGRectMake(0, 0,self.view.width ,self.inputHeight)];
     inputTagView.translatesAutoresizingMaskIntoConstraints=YES;
@@ -399,8 +394,8 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     
     self.inputHeight = [[change valueForKey:@"new"] floatValue];
-    [self.textBgView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo([NSNumber numberWithFloat:self.inputHeight]);
+    [UIView animateWithDuration:0.25 animations:^{
+        self.textBgView.frame = CGRectMake(0, 0, kScreenWidth, self.inputHeight);
     }];
     
     [UIView animateWithDuration:0.25 animations:^{
