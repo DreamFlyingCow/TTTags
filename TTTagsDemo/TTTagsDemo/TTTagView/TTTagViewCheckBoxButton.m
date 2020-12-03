@@ -9,10 +9,10 @@
 
 @implementation TTTagViewCheckBoxButton
 
-+ (instancetype)tagButtonWithTag:(NSString *)tag {
++ (instancetype)tagButtonWithTag:(id)buttonTag {
     
     TTTagViewCheckBoxButton *tagBtn = [[TTTagViewCheckBoxButton alloc] init];
-    
+    tagBtn.buttonTag = buttonTag;
     return tagBtn;
 }
 

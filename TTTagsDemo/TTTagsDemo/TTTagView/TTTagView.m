@@ -303,7 +303,7 @@
 #pragma mark - 在textField上边添加一个按钮
 - (TTTagViewCheckBoxButton *)tagButtonWithTag:(NSString *)tag {
     
-    TTTagViewCheckBoxButton *tagBtn = [[TTTagViewCheckBoxButton alloc] init];
+    TTTagViewCheckBoxButton *tagBtn = [TTTagViewCheckBoxButton tagButtonWithTag:tag];
     
     tagBtn.colorText = _textColor;
     tagBtn.colorBg = _bgColor;
