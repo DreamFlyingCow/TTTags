@@ -1,17 +1,18 @@
 //
-//  UIViewExt.h
-//  Tags
+//  UIView+TTFrame.h
+//  TTTagsDemo
 //
-//  Created by 赵春浩 on 16/8/15.
-//  Copyright © 2016年 Mr Zhao. All rights reserved.
+//  Created by 赵春浩 on 2020/12/3.
 //
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 CGPoint CGRectGetCenter(CGRect rect);
 CGRect  CGRectMoveToCenter(CGRect rect, CGPoint center);
 
-@interface UIView (ViewFrameGeometry)
+@interface UIView (TTFrame)
 
 @property CGPoint origin;
 @property CGSize size;
@@ -29,7 +30,10 @@ CGRect  CGRectMoveToCenter(CGRect rect, CGPoint center);
 @property CGFloat bottom;
 @property CGFloat right;
 
-- (void) moveBy: (CGPoint) delta;
-- (void) scaleBy: (CGFloat) scaleFactor;
-- (void) fitInSize: (CGSize) aSize;
+- (void)moveBy:(CGPoint) delta;
+- (void)scaleBy:(CGFloat) scaleFactor;
+- (void)fitInSize:(CGSize) aSize;
+
 @end
+
+NS_ASSUME_NONNULL_END

@@ -8,9 +8,6 @@
 
 #import "TTTagView.h"
 #import "TTTagHeader.h"
-#import "UIViewExt.h"
-#import "TTTagViewCheckBoxButton.h"
-#import "TTTextField.h"
 
 @interface TTTagView() <UITextFieldDelegate>
 

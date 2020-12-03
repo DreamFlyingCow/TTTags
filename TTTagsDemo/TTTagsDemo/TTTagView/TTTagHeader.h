@@ -34,5 +34,9 @@ green:((c>>8)&0xFF)/255.0    \
 blue:(c&0xFF)/255.0         \
 alpha:1.0]
 
+#import "UIView+TTFrame.h"
+#import "TTTextField.h"
+#import "TTTagViewCheckBoxButton.h"
+
 
 #endif /* TTTagHeader_h */
