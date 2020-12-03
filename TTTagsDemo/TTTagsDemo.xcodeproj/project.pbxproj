@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		82AFA8BF2578E0E9005E870B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA8BE2578E0E9005E870B /* AppDelegate.m */; };
-		82AFA8C22578E0E9005E870B /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA8C12578E0E9005E870B /* SceneDelegate.m */; };
 		82AFA8C82578E0E9005E870B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82AFA8C62578E0E9005E870B /* Main.storyboard */; };
 		82AFA8CA2578E0EB005E870B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82AFA8C92578E0EB005E870B /* Assets.xcassets */; };
 		82AFA8D02578E0EB005E870B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA8CF2578E0EB005E870B /* main.m */; };
@@ -20,6 +19,8 @@
 		82AFA9162578EB2A005E870B /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA9112578EB2A005E870B /* UIViewExt.m */; };
 		82AFA9172578EB2A005E870B /* TTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA9132578EB2A005E870B /* TTViewController.m */; };
 		82AFA9182578EB2A005E870B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA9142578EB2A005E870B /* ViewController.m */; };
+		82AFA92D2578EF21005E870B /* TTTagViewCheckBoxButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA92C2578EF21005E870B /* TTTagViewCheckBoxButton.m */; };
+		82AFA93A2578F582005E870B /* TTTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA9392578F582005E870B /* TTTextField.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,8 +44,6 @@
 		82AFA8BA2578E0E9005E870B /* TTTagsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTTagsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82AFA8BD2578E0E9005E870B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		82AFA8BE2578E0E9005E870B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		82AFA8C02578E0E9005E870B /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		82AFA8C12578E0E9005E870B /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		82AFA8C72578E0E9005E870B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		82AFA8C92578E0EB005E870B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		82AFA8CE2578E0EB005E870B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -66,7 +65,11 @@
 		82AFA9132578EB2A005E870B /* TTViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTViewController.m; sourceTree = "<group>"; };
 		82AFA9142578EB2A005E870B /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		82AFA9152578EB2A005E870B /* TTViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTViewController.h; sourceTree = "<group>"; };
-		82AFA91C2578EB87005E870B /* Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		82AFA92B2578EF21005E870B /* TTTagViewCheckBoxButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTTagViewCheckBoxButton.h; sourceTree = "<group>"; };
+		82AFA92C2578EF21005E870B /* TTTagViewCheckBoxButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTTagViewCheckBoxButton.m; sourceTree = "<group>"; };
+		82AFA9312578F052005E870B /* TTTagHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTTagHeader.h; sourceTree = "<group>"; };
+		82AFA9382578F582005E870B /* TTTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTTextField.h; sourceTree = "<group>"; };
+		82AFA9392578F582005E870B /* TTTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTTextField.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,8 +123,6 @@
 				82AFA9032578EB06005E870B /* TTTagView */,
 				82AFA8BD2578E0E9005E870B /* AppDelegate.h */,
 				82AFA8BE2578E0E9005E870B /* AppDelegate.m */,
-				82AFA8C02578E0E9005E870B /* SceneDelegate.h */,
-				82AFA8C12578E0E9005E870B /* SceneDelegate.m */,
 				82AFA8C62578E0E9005E870B /* Main.storyboard */,
 				82AFA8C92578E0EB005E870B /* Assets.xcassets */,
 				82AFA8FE2578EA9F005E870B /* LaunchScreen.storyboard */,
@@ -133,7 +134,6 @@
 				82AFA9112578EB2A005E870B /* UIViewExt.m */,
 				82AFA9122578EB2A005E870B /* ViewController.h */,
 				82AFA9142578EB2A005E870B /* ViewController.m */,
-				82AFA91C2578EB87005E870B /* Header.h */,
 			);
 			path = TTTagsDemo;
 			sourceTree = "<group>";
@@ -159,10 +159,15 @@
 		82AFA9032578EB06005E870B /* TTTagView */ = {
 			isa = PBXGroup;
 			children = (
-				82AFA9042578EB06005E870B /* TTTagView.m */,
-				82AFA9052578EB06005E870B /* TTGroupTagView.m */,
 				82AFA9062578EB06005E870B /* TTTagView.h */,
+				82AFA9042578EB06005E870B /* TTTagView.m */,
 				82AFA9072578EB06005E870B /* TTGroupTagView.h */,
+				82AFA9052578EB06005E870B /* TTGroupTagView.m */,
+				82AFA92B2578EF21005E870B /* TTTagViewCheckBoxButton.h */,
+				82AFA92C2578EF21005E870B /* TTTagViewCheckBoxButton.m */,
+				82AFA9382578F582005E870B /* TTTextField.h */,
+				82AFA9392578F582005E870B /* TTTextField.m */,
+				82AFA9312578F052005E870B /* TTTagHeader.h */,
 			);
 			path = TTTagView;
 			sourceTree = "<group>";
@@ -297,11 +302,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				82AFA9172578EB2A005E870B /* TTViewController.m in Sources */,
+				82AFA93A2578F582005E870B /* TTTextField.m in Sources */,
 				82AFA8BF2578E0E9005E870B /* AppDelegate.m in Sources */,
 				82AFA9182578EB2A005E870B /* ViewController.m in Sources */,
 				82AFA9082578EB06005E870B /* TTTagView.m in Sources */,
 				82AFA8D02578E0EB005E870B /* main.m in Sources */,
-				82AFA8C22578E0E9005E870B /* SceneDelegate.m in Sources */,
+				82AFA92D2578EF21005E870B /* TTTagViewCheckBoxButton.m in Sources */,
 				82AFA9162578EB2A005E870B /* UIViewExt.m in Sources */,
 				82AFA9092578EB06005E870B /* TTGroupTagView.m in Sources */,
 			);

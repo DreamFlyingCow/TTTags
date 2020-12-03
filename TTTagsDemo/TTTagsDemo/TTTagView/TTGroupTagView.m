@@ -7,60 +7,8 @@
 //
 
 #import "TTGroupTagView.h"
-#import "Header.h"
-
-@interface TTTagViewCheckBoxButton :UIButton
-
-@property (nonatomic, strong) UIColor* colorBg;
-@property (nonatomic, strong) UIColor* colorText;
-@property (strong, nonatomic) UIColor *borderColor;
-
-@property (nonatomic, strong) UIColor* selColorBg;
-@property (nonatomic, strong) UIColor* selColorText;
-@property (strong, nonatomic) UIColor *selBorderColor;
-
-@end
-
-@implementation TTTagViewCheckBoxButton
-
-- (void)setSelected:(BOOL)selected {
-    
-    [super setSelected:selected];
-    if (selected) {
-        [self setBackgroundColor:_selColorBg];
-        self.layer.borderColor = _selBorderColor.CGColor;
-        self.layer.borderWidth = 1;
-        [self setTitleColor:_selColorText forState:UIControlStateSelected];
-    } else {
-        [self setBackgroundColor:_colorBg];
-        self.layer.borderColor = _borderColor.CGColor;
-        self.layer.borderWidth = 1;
-        [self setTitleColor:_colorText forState:UIControlStateNormal];
-    }
-    [self setNeedsDisplay];
-}
-
-@end
-
-@interface SMTextField : UITextField
-
-@end
-
-@implementation SMTextField
-
-// 设置占位文本的位置
-- (CGRect)textRectForBounds:(CGRect)bounds {
-    
-    return CGRectInset( bounds , 12.5 , 0 );
-}
-
-// 设置文本的位置
-- (CGRect)editingRectForBounds:(CGRect)bounds {
-    
-    return CGRectInset( bounds , 12.5 , 0 );
-}
-
-@end
+#import "TTTagHeader.h"
+#import "TTTagViewCheckBoxButton.h"
 
 @interface TTGroupTagView()
 
@@ -222,7 +170,7 @@
 // 添加标签按钮
 - (TTTagViewCheckBoxButton *)tagButtonWithTag:(NSString *)tag {
     
-    TTTagViewCheckBoxButton *tagBtn = [[TTTagViewCheckBoxButton alloc] init];
+    TTTagViewCheckBoxButton *tagBtn = [TTTagViewCheckBoxButton tagButtonWithTag:tag];
     
     tagBtn.colorBg = _bgColor;
     tagBtn.colorText = _textColor;

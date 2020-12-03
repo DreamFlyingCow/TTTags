@@ -7,80 +7,10 @@
 //
 
 #import "TTTagView.h"
-
-@interface TTCheckBoxButton :UIButton
-/**
- *  未被选中时标签的背景颜色
- */
-@property (nonatomic, strong) UIColor *colorBg;
-/**
- *  未被选中时标签的文字的颜色
- */
-@property (nonatomic, strong) UIColor *colorText;
-/**
- *  未被选中时标签的边框颜色
- */
-@property (strong, nonatomic) UIColor *borderColor;
-/**
- *  被选中时标签的背景颜色
- */
-@property (nonatomic, strong) UIColor *selColorBg;
-/**
- *  被选中时标签的文字的颜色
- */
-@property (nonatomic, strong) UIColor *selColorText;
-/**
- *  被选中时标签的边框颜色
- */
-@property (strong, nonatomic) UIColor *selBorderColor;
-
-@end
-
-
-@implementation TTCheckBoxButton
-
-- (void)setSelected:(BOOL)selected {
-    
-    [super setSelected:selected];
-    if (selected) {
-        
-        [self setBackgroundColor:_selColorBg];
-        self.layer.borderColor = _selBorderColor.CGColor;
-        self.layer.borderWidth = 1;
-        [self setTitleColor:_selColorText forState:UIControlStateSelected];
-    } else {
-        
-        [self setBackgroundColor:_colorBg];
-        self.layer.borderColor = _borderColor.CGColor;
-        self.layer.borderWidth = 1;
-        [self setTitleColor:_colorText forState:UIControlStateNormal];
-    }
-    [self setNeedsDisplay];
-}
-
-@end
-
-
-@interface TTTextField : UITextField
-
-@end
-
-@implementation TTTextField
-
-// 设置占位文本的位置
-- (CGRect)textRectForBounds:(CGRect)bounds {
-    
-    return CGRectInset( bounds , 12.5 , 0 );
-}
-
-// 设置文本的位置
-- (CGRect)editingRectForBounds:(CGRect)bounds {
-    
-    return CGRectInset( bounds , 12.5 , 0 );
-}
-
-@end
-
+#import "TTTagHeader.h"
+#import "UIViewExt.h"
+#import "TTTagViewCheckBoxButton.h"
+#import "TTTextField.h"
 
 @interface TTTagView() <UITextFieldDelegate>
 
@@ -107,7 +37,7 @@
 /**
  *  被选中的标签
  */
-@property (strong, nonatomic) TTCheckBoxButton *selectedBtn;
+@property (strong, nonatomic) TTTagViewCheckBoxButton *selectedBtn;
 
 @end
 
@@ -125,7 +55,6 @@
     // 正在编辑的标签的下标
     NSInteger _editingTagIndex;
 }
-
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     
@@ -206,7 +135,6 @@
     _tagStringsSelected = [NSMutableArray new];
     
     {
-        
         /**
          *  标签所在的view(UIScrollView)
          */
@@ -226,7 +154,7 @@
     }
     {
         // 默认的标签
-        UITextField* tf = [[TTTextField alloc] initWithFrame:CGRectMake(0, 0, _tagWidht, _tagHeight)];
+        TTTextField* tf = [[TTTextField alloc] initWithFrame:CGRectMake(0, 0, _tagWidht, _tagHeight)];
         tf.autocorrectionType = UITextAutocorrectionTypeNo;
         [tf addTarget:self action:@selector(textFieldDidFinishChange:)forControlEvents:UIControlEventEditingChanged];
         tf.delegate = self;
@@ -243,7 +171,6 @@
     }
 }
 
-
 - (NSMutableArray *)tagStrings {
     
       switch (_type) {
@@ -256,7 +183,7 @@
         case TTTagView_Type_Selected: {
             
             [_tagStringsSelected removeAllObjects];
-            for (TTCheckBoxButton *button in _tagButtons) {
+            for (TTTagViewCheckBoxButton *button in _tagButtons) {
                 if (button.selected) {
                     [_tagStringsSelected addObject:button.titleLabel.text];
                     break;
@@ -285,7 +212,7 @@
     float oldContentHeight = _svContainer.contentSize.height;
     float offsetX = _tagPaddingSize.width,  offsetY = _tagPaddingSize.height;
     for (int i = 0; i < _tagButtons.count; i ++) {
-        TTCheckBoxButton *tagButton = _tagButtons[i];
+        TTTagViewCheckBoxButton *tagButton = _tagButtons[i];
         CGRect frame = tagButton.frame;
         self.isFirst = NO;
 
@@ -377,9 +304,9 @@
 }
 
 #pragma mark - 在textField上边添加一个按钮
-- (TTCheckBoxButton *)tagButtonWithTag:(NSString *)tag {
+- (TTTagViewCheckBoxButton *)tagButtonWithTag:(NSString *)tag {
     
-    TTCheckBoxButton *tagBtn = [[TTCheckBoxButton alloc] init];
+    TTTagViewCheckBoxButton *tagBtn = [[TTTagViewCheckBoxButton alloc] init];
     
     tagBtn.colorText = _textColor;
     tagBtn.colorBg = _bgColor;
@@ -404,7 +331,7 @@
 }
 
 #pragma mark - 按钮的点击事件
-- (void)handlerTagButtonEvent:(TTCheckBoxButton *)sender {
+- (void)handlerTagButtonEvent:(TTTagViewCheckBoxButton *)sender {
     
     [self textFieldShouldReturn:_tfInput];
     if (self.selectedBtn != nil) {
@@ -415,8 +342,8 @@
     [self.selectedBtn setSelected:YES];
     
 }
-#pragma mark action 添加标签
 
+#pragma mark action 添加标签
 - (void)addTags:(NSArray *)tags {
     
     for (NSString *tag in tags) {
@@ -424,7 +351,6 @@
     }
     
     [self layoutTagviews];
-    
 }
 
 - (void)addTags:(NSArray *)tags selectedTags:(NSArray*)selectedTags {
@@ -443,7 +369,7 @@
             [self.delegate finishInput:tag];
         }
         
-        TTCheckBoxButton *tagButton = [self tagButtonWithTag:tag];
+        TTTagViewCheckBoxButton *tagButton = [self tagButtonWithTag:tag];
         [tagButton addTarget:self action:@selector(handlerButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [_svContainer addSubview:tagButton];
         [_tagButtons addObject:tagButton];
@@ -485,7 +411,7 @@
 }
 
 #pragma mark - 删除标签
-- (void)handlerButtonAction:(TTCheckBoxButton *)tagButton {
+- (void)handlerButtonAction:(TTTagViewCheckBoxButton *)tagButton {
     
     switch (_type) {
         case TTTagView_Type_Edit: {
@@ -497,7 +423,9 @@
             // 自定义UIMenuController(删除按钮)
             UIMenuController *menuController = [UIMenuController sharedMenuController];
             UIMenuItem *resetMenuItem = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(deleteItemClicked:)];
-            NSAssert([self becomeFirstResponder], @"Sorry, UIMenuController will not work with %@ since it cannot become first responder", self);
+            [self becomeFirstResponder];
+            // 这里加上这句话之后, release版本的点击事件中删除按钮出不来............
+//            NSAssert([self becomeFirstResponder], @"Sorry, UIMenuController will not work with %@ since it cannot become first responder", self);
             [menuController setMenuItems:[NSArray arrayWithObject:resetMenuItem]];
             [menuController setTargetRect:buttonFrame inView:_svContainer];
             [menuController setMenuVisible:YES animated:YES];
@@ -505,7 +433,7 @@
             break;
         case TTTagView_Type_Selected: {
             
-            for (TTCheckBoxButton *button in _tagButtons) {
+            for (TTTagViewCheckBoxButton *button in _tagButtons) {
                 button.selected = NO;
             }
             tagButton.selected = YES;
@@ -516,9 +444,7 @@
         }
             break;
     }
-
 }
-
 
 #pragma mark UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -565,7 +491,6 @@
     [self layoutTagviews];
 }
 
-
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     // 标签中限制其输入空格
@@ -591,7 +516,6 @@
     } else {
         return YES;
     }
-    
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -614,7 +538,7 @@
 }
 
 #pragma mark UIMenuController
-- (void)deleteItemClicked:(TTCheckBoxButton *)sender {
+- (void)deleteItemClicked:(TTTagViewCheckBoxButton *)sender {
     
     
     if ([self.delegate respondsToSelector:@selector(deleteBtnClick:)] && _editingTagIndex < _tagStrings.count) {
@@ -686,19 +610,16 @@
     [self layoutTagviews];
 }
 
-
 - (void)setBgColor:(UIColor *)bgColor {
     
     if (_bgColor == nil) {
         _bgColor = bgColor;
     }
     
-    for (TTCheckBoxButton *button in _tagButtons) {
+    for (TTTagViewCheckBoxButton *button in _tagButtons) {
         button.colorBg = bgColor;
     }
-    
 }
-
 
 - (void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected {
     

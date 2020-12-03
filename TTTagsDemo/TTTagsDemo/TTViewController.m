@@ -8,7 +8,7 @@
 
 #import "TTViewController.h"
 #import "ViewController.h"
-#import "Header.h"
+#import "TTTagHeader.h"
 
 
 @interface TTViewController ()<ViewControllerDelegate>

@@ -1,13 +1,12 @@
 //
-//  Header.h
-//  Tags
+//  TTTagHeader.h
+//  TTTagsDemo
 //
-//  Created by 赵春浩 on 16/8/15.
-//  Copyright © 2016年 Mr Zhao. All rights reserved.
+//  Created by 赵春浩 on 2020/12/3.
 //
 
-#ifndef Header_h
-#define Header_h
+#ifndef TTTagHeader_h
+#define TTTagHeader_h
 
 //屏幕的物理宽度
 #define     kScreenWidth            [UIScreen mainScreen].bounds.size.width
@@ -26,14 +25,14 @@
 
 
 
-#define kColorRGBA(c,a) [UIColor colorWithRed:((c>>16)&0xFF)/255.0	\
-green:((c>>8)&0xFF)/255.0	\
+#define kColorRGBA(c,a) [UIColor colorWithRed:((c>>16)&0xFF)/255.0    \
+green:((c>>8)&0xFF)/255.0    \
 blue:(c&0xFF)/255.0         \
 alpha:a]
-#define kColorRGB(c)    [UIColor colorWithRed:((c>>16)&0xFF)/255.0	\
-green:((c>>8)&0xFF)/255.0	\
+#define kColorRGB(c)    [UIColor colorWithRed:((c>>16)&0xFF)/255.0    \
+green:((c>>8)&0xFF)/255.0    \
 blue:(c&0xFF)/255.0         \
 alpha:1.0]
 
 
-#endif /* Header_h */
+#endif /* TTTagHeader_h */

@@ -7,7 +7,7 @@
 
 #import "AppDelegate.h"
 #import "TTViewController.h"
-#import "Header.h"
+#import "TTTagHeader.h"
 
 @interface AppDelegate ()
 
