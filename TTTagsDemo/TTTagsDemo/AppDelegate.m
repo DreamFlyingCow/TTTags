@@ -1,14 +1,13 @@
 //
 //  AppDelegate.m
-//  Tags
+//  TTTagsDemo
 //
-//  Created by 赵春浩 on 16/8/15.
-//  Copyright © 2016年 Mr Zhao. All rights reserved.
+//  Created by 赵春浩 on 2020/12/3.
 //
 
 #import "AppDelegate.h"
 #import "TTViewController.h"
-
+#import "Header.h"
 
 @interface AppDelegate ()
 
@@ -18,8 +17,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    [NSThread sleepForTimeInterval:2.0];
+    // Override point for customization after application launch.
     
     
     self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
@@ -33,31 +31,22 @@
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    
-    
-    
-    
+
+#pragma mark - UISceneSession lifecycle
+
+
+- (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession options:(UISceneConnectionOptions *)options {
+    // Called when a new scene session is being created.
+    // Use this method to select a configuration to create the new scene with.
+    return [[UISceneConfiguration alloc] initWithName:@"Default Configuration" sessionRole:connectingSceneSession.role];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+
+- (void)application:(UIApplication *)application didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions {
+    // Called when the user discards a scene session.
+    // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
+    // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    
-    
-    
-    
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
 
 @end

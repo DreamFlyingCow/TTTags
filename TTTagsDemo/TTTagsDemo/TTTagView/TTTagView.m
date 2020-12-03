@@ -7,6 +7,8 @@
 //
 
 #import "TTTagView.h"
+#import "Header.h"
+#import "UIViewExt.h"
 
 @interface TTCheckBoxButton :UIButton
 /**

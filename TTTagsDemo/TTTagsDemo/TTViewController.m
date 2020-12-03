@@ -8,6 +8,7 @@
 
 #import "TTViewController.h"
 #import "ViewController.h"
+#import "Header.h"
 
 
 @interface TTViewController ()<ViewControllerDelegate>
@@ -29,7 +30,7 @@
 - (void)addOneButton {
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.size = CGSizeMake(50, 50);
+    btn.frame = CGRectMake(0, 0, 50, 50);
     btn.center = self.view.center;
     [btn setBackgroundColor:kRandomColor];
     btn.layer.cornerRadius = 5;

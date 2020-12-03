@@ -7,8 +7,10 @@
 //
 
 #import "ViewController.h"
-#import "TTTagView.h"
-#import "TTGroupTagView.h"
+#import "TTTagView/TTTagView.h"
+#import "TTTagView/TTGroupTagView.h"
+#import "UIViewExt.h"
+#import "Header.h"
 
 @interface ViewController ()<TTTagViewDelegate, TTGroupTagViewDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 

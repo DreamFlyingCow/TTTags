@@ -7,6 +7,7 @@
 //
 
 #import "TTGroupTagView.h"
+#import "Header.h"
 
 @interface TTTagViewCheckBoxButton :UIButton
 

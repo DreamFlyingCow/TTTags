@@ -1,16 +1,18 @@
 //
 //  main.m
-//  Tags
+//  TTTagsDemo
 //
-//  Created by 赵春浩 on 16/8/15.
-//  Copyright © 2016年 Mr Zhao. All rights reserved.
+//  Created by 赵春浩 on 2020/12/3.
 //
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
 int main(int argc, char * argv[]) {
+    NSString * appDelegateClassName;
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+        // Setup code that might create autoreleased objects goes here.
+        appDelegateClassName = NSStringFromClass([AppDelegate class]);
     }
+    return UIApplicationMain(argc, argv, nil, appDelegateClassName);
 }
