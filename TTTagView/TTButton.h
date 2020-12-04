@@ -1,5 +1,5 @@
 //
-//  TTTagViewCheckBoxButton.h
+//  TTButton.h
 //  TTTagsDemo
 //
 //  Created by 赵春浩 on 2020/12/3.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TTTagViewCheckBoxButton : UIButton
+@interface TTButton : UIButton
 
 @property (nonatomic, strong) UIColor *colorBg;         // 默认按钮背景色
 @property (nonatomic, strong) UIColor *colorText;       // 默认按钮字体颜色

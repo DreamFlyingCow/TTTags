@@ -8,7 +8,6 @@
 
 #import "TTGroupTagView.h"
 #import "TTTagHeader.h"
-#import "TTTagViewCheckBoxButton.h"
 
 @interface TTGroupTagView()
 
@@ -118,7 +117,7 @@
     float oldContentHeight = _svContainer.contentSize.height;
     float offsetX = _tagPaddingSize.width,offsetY = _tagPaddingSize.height;
     for (int i = 0; i < _tagButtons.count; i ++) {
-        TTTagViewCheckBoxButton *tagButton = _tagButtons[i];
+        TTButton *tagButton = _tagButtons[i];
         CGRect frame = tagButton.frame;
         self.isFirst = NO;
         
@@ -168,9 +167,9 @@
 }
 
 // 添加标签按钮
-- (TTTagViewCheckBoxButton *)tagButtonWithTag:(NSString *)tag {
+- (TTButton *)tagButtonWithTag:(NSString *)tag {
     
-    TTTagViewCheckBoxButton *tagBtn = [TTTagViewCheckBoxButton tagButtonWithTag:tag];
+    TTButton *tagBtn = [TTButton tagButtonWithTag:tag];
     
     tagBtn.colorBg = _bgColor;
     tagBtn.colorText = _textColor;
@@ -200,7 +199,7 @@
  *
  *  @param sender 选中 <-> 未选中 之间的转换
  */
-- (void)handlerTagButtonEvent:(TTTagViewCheckBoxButton*)sender {
+- (void)handlerTagButtonEvent:(TTButton *)sender {
     
     BOOL isSelected = sender.selected;
     sender.selected = !sender.selected;
@@ -224,7 +223,7 @@
     if (result.count == 0) {
         [_tagStrings addObject:tag];
         
-        TTTagViewCheckBoxButton* tagButton = [self tagButtonWithTag:tag];
+        TTButton* tagButton = [self tagButtonWithTag:tag];
         [_svContainer addSubview:tagButton];
         [_tagButtons addObject:tagButton];
 
@@ -262,7 +261,7 @@
     
     for (int i = 0; i < self.tagStrings.count; i ++) {
         if ([deleteString isEqualToString:self.tagStrings[i]]) {
-            TTTagViewCheckBoxButton *button = self.tagButtons[i];
+            TTButton *button = self.tagButtons[i];
             button.selected = NO;
             return;
         }

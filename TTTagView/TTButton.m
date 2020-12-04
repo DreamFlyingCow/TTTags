@@ -1,19 +1,19 @@
 //
-//  TTTagViewCheckBoxButton.m
+//  TTButton.m
 //  TTTagsDemo
 //
 //  Created by 赵春浩 on 2020/12/3.
 //
 
-#import "TTTagViewCheckBoxButton.h"
+#import "TTButton.h"
 
-@implementation TTTagViewCheckBoxButton
+@implementation TTButton
 
-+ (instancetype)tagButtonWithTag:(NSString *)tag {
++ (instancetype)tagButtonWithTag:(id)buttonTag {
     
-    TTTagViewCheckBoxButton *tagBtn = [[TTTagViewCheckBoxButton alloc] init];
-    
-    return tagBtn;
+    TTButton *button = [[TTButton alloc] init];
+    button.buttonTag = buttonTag;
+    return button;
 }
 
 - (void)setSelected:(BOOL)selected {
@@ -32,7 +32,6 @@
     }
     [self setNeedsDisplay];
 }
-
 
 
 @end

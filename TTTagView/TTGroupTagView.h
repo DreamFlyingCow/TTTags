@@ -24,24 +24,22 @@
 
 @interface TTGroupTagView : UIView
 
-@property (nonatomic, weak) id <TTGroupTagViewDelegate> delegate;
+@property (nonatomic,   weak) id <TTGroupTagViewDelegate> delegate;
 
-@property (assign, nonatomic) CGFloat changeHeight;
+@property (nonatomic, assign) CGFloat changeHeight;
 
-@property (nonatomic) float tagWidht;
-@property (nonatomic) float tagHeight;
+@property (nonatomic, assign) float tagWidht;
+@property (nonatomic, assign) float tagHeight;
 
-@property (nonatomic) float viewMaxHeight;
+@property (nonatomic, assign) float viewMaxHeight;
 
-@property (nonatomic) CGSize tagPaddingSize;
-@property (nonatomic) CGSize textPaddingSize;
+@property (nonatomic, assign) CGSize tagPaddingSize;
+@property (nonatomic, assign) CGSize textPaddingSize;
 
 /**
  *  字体大小
  */
 @property (nonatomic, strong) UIFont *fontTag;
-
-
 /**
  *  未被选中时的背景颜色
  */
@@ -67,13 +65,12 @@
  */
 @property (nonatomic, strong) UIColor *selBorderColor;
 
-
 @property (copy, nonatomic) NSString *deleteString;
 
 
 - (void)addTags:(NSArray *)tags;
--(void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected;
--(NSMutableArray *)tagStrings;
+- (void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected;
+- (NSMutableArray *)tagStrings;
 
 
 @end

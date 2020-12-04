@@ -19,10 +19,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    
     self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     TTViewController *VC = [[TTViewController alloc] init];
-    
     
     UINavigationController *NAV = [[UINavigationController alloc] initWithRootViewController:VC];
     self.window.rootViewController = NAV;

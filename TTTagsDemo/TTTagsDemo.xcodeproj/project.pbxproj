@@ -14,13 +14,13 @@
 		82AFA8DA2578E0EB005E870B /* TTTagsDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA8D92578E0EB005E870B /* TTTagsDemoTests.m */; };
 		82AFA8E52578E0EB005E870B /* TTTagsDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA8E42578E0EB005E870B /* TTTagsDemoUITests.m */; };
 		82AFA8FF2578EA9F005E870B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82AFA8FE2578EA9F005E870B /* LaunchScreen.storyboard */; };
-		82AFA9082578EB06005E870B /* TTTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA9042578EB06005E870B /* TTTagView.m */; };
-		82AFA9092578EB06005E870B /* TTGroupTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA9052578EB06005E870B /* TTGroupTagView.m */; };
 		82AFA9172578EB2A005E870B /* TTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA9132578EB2A005E870B /* TTViewController.m */; };
 		82AFA9182578EB2A005E870B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA9142578EB2A005E870B /* ViewController.m */; };
-		82AFA92D2578EF21005E870B /* TTTagViewCheckBoxButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA92C2578EF21005E870B /* TTTagViewCheckBoxButton.m */; };
-		82AFA93A2578F582005E870B /* TTTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA9392578F582005E870B /* TTTextField.m */; };
-		82AFA9462578F76F005E870B /* UIView+TTFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA9452578F76F005E870B /* UIView+TTFrame.m */; };
+		82AFA95F2579E3FE005E870B /* TTTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA9542579E3FE005E870B /* TTTagView.m */; };
+		82AFA9602579E3FE005E870B /* TTGroupTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA9572579E3FE005E870B /* TTGroupTagView.m */; };
+		82AFA9612579E3FE005E870B /* TTButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA9582579E3FE005E870B /* TTButton.m */; };
+		82AFA9622579E3FE005E870B /* TTTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA95B2579E3FE005E870B /* TTTextField.m */; };
+		82AFA9632579E3FE005E870B /* UIView+TTFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA95C2579E3FE005E870B /* UIView+TTFrame.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,21 +55,21 @@
 		82AFA8E42578E0EB005E870B /* TTTagsDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTTagsDemoUITests.m; sourceTree = "<group>"; };
 		82AFA8E62578E0EB005E870B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82AFA8FE2578EA9F005E870B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		82AFA9042578EB06005E870B /* TTTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTagView.m; sourceTree = "<group>"; };
-		82AFA9052578EB06005E870B /* TTGroupTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTGroupTagView.m; sourceTree = "<group>"; };
-		82AFA9062578EB06005E870B /* TTTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTagView.h; sourceTree = "<group>"; };
-		82AFA9072578EB06005E870B /* TTGroupTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGroupTagView.h; sourceTree = "<group>"; };
 		82AFA9122578EB2A005E870B /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		82AFA9132578EB2A005E870B /* TTViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTViewController.m; sourceTree = "<group>"; };
 		82AFA9142578EB2A005E870B /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		82AFA9152578EB2A005E870B /* TTViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTViewController.h; sourceTree = "<group>"; };
-		82AFA92B2578EF21005E870B /* TTTagViewCheckBoxButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTTagViewCheckBoxButton.h; sourceTree = "<group>"; };
-		82AFA92C2578EF21005E870B /* TTTagViewCheckBoxButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTTagViewCheckBoxButton.m; sourceTree = "<group>"; };
-		82AFA9312578F052005E870B /* TTTagHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTTagHeader.h; sourceTree = "<group>"; };
-		82AFA9382578F582005E870B /* TTTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTTextField.h; sourceTree = "<group>"; };
-		82AFA9392578F582005E870B /* TTTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTTextField.m; sourceTree = "<group>"; };
-		82AFA9442578F76F005E870B /* UIView+TTFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+TTFrame.h"; sourceTree = "<group>"; };
-		82AFA9452578F76F005E870B /* UIView+TTFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+TTFrame.m"; sourceTree = "<group>"; };
+		82AFA9542579E3FE005E870B /* TTTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTagView.m; sourceTree = "<group>"; };
+		82AFA9552579E3FE005E870B /* TTTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTextField.h; sourceTree = "<group>"; };
+		82AFA9562579E3FE005E870B /* UIView+TTFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TTFrame.h"; sourceTree = "<group>"; };
+		82AFA9572579E3FE005E870B /* TTGroupTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTGroupTagView.m; sourceTree = "<group>"; };
+		82AFA9582579E3FE005E870B /* TTButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTButton.m; sourceTree = "<group>"; };
+		82AFA9592579E3FE005E870B /* TTTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTagView.h; sourceTree = "<group>"; };
+		82AFA95A2579E3FE005E870B /* TTTagHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTagHeader.h; sourceTree = "<group>"; };
+		82AFA95B2579E3FE005E870B /* TTTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTextField.m; sourceTree = "<group>"; };
+		82AFA95C2579E3FE005E870B /* UIView+TTFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TTFrame.m"; sourceTree = "<group>"; };
+		82AFA95D2579E3FE005E870B /* TTButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTButton.h; sourceTree = "<group>"; };
+		82AFA95E2579E3FE005E870B /* TTGroupTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGroupTagView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +120,7 @@
 		82AFA8BC2578E0E9005E870B /* TTTagsDemo */ = {
 			isa = PBXGroup;
 			children = (
-				82AFA9032578EB06005E870B /* TTTagView */,
+				82AFA9532579E3FE005E870B /* TTTagView */,
 				82AFA8BD2578E0E9005E870B /* AppDelegate.h */,
 				82AFA8BE2578E0E9005E870B /* AppDelegate.m */,
 				82AFA8C62578E0E9005E870B /* Main.storyboard */,
@@ -154,22 +154,23 @@
 			path = TTTagsDemoUITests;
 			sourceTree = "<group>";
 		};
-		82AFA9032578EB06005E870B /* TTTagView */ = {
+		82AFA9532579E3FE005E870B /* TTTagView */ = {
 			isa = PBXGroup;
 			children = (
-				82AFA9062578EB06005E870B /* TTTagView.h */,
-				82AFA9042578EB06005E870B /* TTTagView.m */,
-				82AFA9072578EB06005E870B /* TTGroupTagView.h */,
-				82AFA9052578EB06005E870B /* TTGroupTagView.m */,
-				82AFA92B2578EF21005E870B /* TTTagViewCheckBoxButton.h */,
-				82AFA92C2578EF21005E870B /* TTTagViewCheckBoxButton.m */,
-				82AFA9382578F582005E870B /* TTTextField.h */,
-				82AFA9392578F582005E870B /* TTTextField.m */,
-				82AFA9442578F76F005E870B /* UIView+TTFrame.h */,
-				82AFA9452578F76F005E870B /* UIView+TTFrame.m */,
-				82AFA9312578F052005E870B /* TTTagHeader.h */,
+				82AFA95A2579E3FE005E870B /* TTTagHeader.h */,
+				82AFA95D2579E3FE005E870B /* TTButton.h */,
+				82AFA9582579E3FE005E870B /* TTButton.m */,
+				82AFA9552579E3FE005E870B /* TTTextField.h */,
+				82AFA95B2579E3FE005E870B /* TTTextField.m */,
+				82AFA9592579E3FE005E870B /* TTTagView.h */,
+				82AFA9542579E3FE005E870B /* TTTagView.m */,
+				82AFA95E2579E3FE005E870B /* TTGroupTagView.h */,
+				82AFA9572579E3FE005E870B /* TTGroupTagView.m */,
+				82AFA9562579E3FE005E870B /* UIView+TTFrame.h */,
+				82AFA95C2579E3FE005E870B /* UIView+TTFrame.m */,
 			);
-			path = TTTagView;
+			name = TTTagView;
+			path = ../../TTTagView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,14 +303,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				82AFA9172578EB2A005E870B /* TTViewController.m in Sources */,
-				82AFA93A2578F582005E870B /* TTTextField.m in Sources */,
+				82AFA9622579E3FE005E870B /* TTTextField.m in Sources */,
 				82AFA8BF2578E0E9005E870B /* AppDelegate.m in Sources */,
+				82AFA9612579E3FE005E870B /* TTButton.m in Sources */,
+				82AFA95F2579E3FE005E870B /* TTTagView.m in Sources */,
+				82AFA9632579E3FE005E870B /* UIView+TTFrame.m in Sources */,
 				82AFA9182578EB2A005E870B /* ViewController.m in Sources */,
-				82AFA9082578EB06005E870B /* TTTagView.m in Sources */,
-				82AFA9462578F76F005E870B /* UIView+TTFrame.m in Sources */,
 				82AFA8D02578E0EB005E870B /* main.m in Sources */,
-				82AFA92D2578EF21005E870B /* TTTagViewCheckBoxButton.m in Sources */,
-				82AFA9092578EB06005E870B /* TTGroupTagView.m in Sources */,
+				82AFA9602579E3FE005E870B /* TTGroupTagView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
