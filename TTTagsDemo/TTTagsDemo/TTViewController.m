@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.view.backgroundColor = kRandomColor;
+    self.view.backgroundColor = TTRandomColor;
     self.title = @"首页";
     [self addOneButton];
 }
@@ -32,15 +32,15 @@
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 50, 50);
     btn.center = self.view.center;
-    [btn setBackgroundColor:kRandomColor];
+    [btn setBackgroundColor:TTRandomColor];
     btn.layer.cornerRadius = 5;
     btn.layer.masksToBounds = YES;
     [btn setTitle:@"点我" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     
-    _tags = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, kScreenWidth - 40, 100)];
-    _tags.textColor = kRandomColor;
+    _tags = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, TTScreenWidth - 40, 100)];
+    _tags.textColor = TTRandomColor;
     _tags.font = [UIFont boldSystemFontOfSize:17];
     _tags.text = @"你好 你吃 你喝";
     _tags.textAlignment = NSTextAlignmentCenter;

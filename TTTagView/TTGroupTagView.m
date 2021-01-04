@@ -12,7 +12,6 @@
 @interface TTGroupTagView()
 
 @property (nonatomic, strong) UIScrollView* svContainer;
-
 /**
  *  标签按钮的数组
  */
@@ -25,17 +24,13 @@
  *  标记被选中的标签
  */
 @property (nonatomic, strong) NSMutableArray *tagStringsSelected;
-
-@end
-
-@interface TTGroupTagView ()
-
 // 当输入的文字过长时用来存储总长度的
 @property (assign, nonatomic) CGFloat currentMaxLength;
 /**
  *  是否是第一行
  */
 @property (assign, nonatomic) BOOL isFirst;
+
 @end
 
 @implementation TTGroupTagView {
@@ -78,16 +73,15 @@
     _textPaddingSize = CGSizeMake(12.5, 0);
     _fontTag = [UIFont systemFontOfSize:14];
     
-    _bgColor = kColorRGB(0x999999);
-    _selBgColor = kColorRGB(0xffffff);
-    _textColor = kColorRGB(0xcccccc);
-    _selTextColor = kColorRGB(0xffae00);
-    _borderColor = kColorRGB(0xffffff);
-    _selBorderColor = kColorRGB(0xffae00);
+    _bgColor = TTColorRGB(0x999999);
+    _selBgColor = TTColorRGB(0xffffff);
+    _textColor = TTColorRGB(0xcccccc);
+    _selTextColor = TTColorRGB(0xffae00);
+    _borderColor = TTColorRGB(0xffffff);
+    _selBorderColor = TTColorRGB(0xffae00);
     
     _viewMaxHeight = MAXFLOAT;
-    self.backgroundColor = kColorRGB(0xffffff);
-    
+    self.backgroundColor = TTColorRGB(0xffffff);
     self.currentMaxLength = 0;
     
     _tagButtons = [NSMutableArray new];
@@ -121,7 +115,7 @@
         CGRect frame = tagButton.frame;
         self.isFirst = NO;
         
-        if ((offsetX + tagButton.frame.size.width + _tagPaddingSize.width) <= kScreenWidth) {
+        if ((offsetX + tagButton.frame.size.width + _tagPaddingSize.width) <= TTScreenWidth) {
             frame.origin.x = offsetX;
             frame.origin.y = offsetY;
             offsetX += tagButton.frame.size.width + _tagPaddingSize.width;
@@ -141,7 +135,6 @@
             offsetX += tagButton.frame.size.width + _tagPaddingSize.width;
             
         }
-        
         tagButton.frame=frame;
     }
     
@@ -241,7 +234,6 @@
 - (void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected {
     
     _tagStringsSelected = tagStringsSelected;
-    
     for (NSString *str in tagStringsSelected) {
         for (int i = 0; i < self.tagStrings.count; i ++) {
             if ([str isEqualToString:self.tagStrings[i]]) {

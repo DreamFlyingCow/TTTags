@@ -11,8 +11,6 @@
 		82AFA8C82578E0E9005E870B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82AFA8C62578E0E9005E870B /* Main.storyboard */; };
 		82AFA8CA2578E0EB005E870B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82AFA8C92578E0EB005E870B /* Assets.xcassets */; };
 		82AFA8D02578E0EB005E870B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA8CF2578E0EB005E870B /* main.m */; };
-		82AFA8DA2578E0EB005E870B /* TTTagsDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA8D92578E0EB005E870B /* TTTagsDemoTests.m */; };
-		82AFA8E52578E0EB005E870B /* TTTagsDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA8E42578E0EB005E870B /* TTTagsDemoUITests.m */; };
 		82AFA8FF2578EA9F005E870B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82AFA8FE2578EA9F005E870B /* LaunchScreen.storyboard */; };
 		82AFA9172578EB2A005E870B /* TTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA9132578EB2A005E870B /* TTViewController.m */; };
 		82AFA9182578EB2A005E870B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82AFA9142578EB2A005E870B /* ViewController.m */; };
@@ -49,11 +47,7 @@
 		82AFA8CE2578E0EB005E870B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82AFA8CF2578E0EB005E870B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		82AFA8D52578E0EB005E870B /* TTTagsDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TTTagsDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		82AFA8D92578E0EB005E870B /* TTTagsDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTTagsDemoTests.m; sourceTree = "<group>"; };
-		82AFA8DB2578E0EB005E870B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82AFA8E02578E0EB005E870B /* TTTagsDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TTTagsDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		82AFA8E42578E0EB005E870B /* TTTagsDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTTagsDemoUITests.m; sourceTree = "<group>"; };
-		82AFA8E62578E0EB005E870B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82AFA8FE2578EA9F005E870B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		82AFA9122578EB2A005E870B /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		82AFA9132578EB2A005E870B /* TTViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTViewController.m; sourceTree = "<group>"; };
@@ -101,8 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				82AFA8BC2578E0E9005E870B /* TTTagsDemo */,
-				82AFA8D82578E0EB005E870B /* TTTagsDemoTests */,
-				82AFA8E32578E0EB005E870B /* TTTagsDemoUITests */,
 				82AFA8BB2578E0E9005E870B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -134,24 +126,6 @@
 				82AFA9142578EB2A005E870B /* ViewController.m */,
 			);
 			path = TTTagsDemo;
-			sourceTree = "<group>";
-		};
-		82AFA8D82578E0EB005E870B /* TTTagsDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				82AFA8D92578E0EB005E870B /* TTTagsDemoTests.m */,
-				82AFA8DB2578E0EB005E870B /* Info.plist */,
-			);
-			path = TTTagsDemoTests;
-			sourceTree = "<group>";
-		};
-		82AFA8E32578E0EB005E870B /* TTTagsDemoUITests */ = {
-			isa = PBXGroup;
-			children = (
-				82AFA8E42578E0EB005E870B /* TTTagsDemoUITests.m */,
-				82AFA8E62578E0EB005E870B /* Info.plist */,
-			);
-			path = TTTagsDemoUITests;
 			sourceTree = "<group>";
 		};
 		82AFA9532579E3FE005E870B /* TTTagView */ = {
@@ -318,7 +292,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82AFA8DA2578E0EB005E870B /* TTTagsDemoTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,7 +299,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82AFA8E52578E0EB005E870B /* TTTagsDemoUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIColor *selBorderColor;  // 选中时按钮边框颜色
 
 @property (nonatomic, strong) id buttonTag;             // 按钮的标记
+
 // 带标记初始化方法
 + (instancetype)tagButtonWithTag:(id)buttonTag;
 

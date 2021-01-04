@@ -36,19 +36,15 @@
  */
 @property (strong, nonatomic) TTButton *selectedBtn;
 
-@end
-
-@interface TTTagView ()
-
 // 当输入的文字过长时用来存储总长度的
 @property (assign, nonatomic) CGFloat currentMaxLength;
+
 // 判定是否是第一行还没有标签(防止在第一行编辑标签的时候就进行换行导致第一行空出来)
 @property (assign, nonatomic) BOOL isFirst;
 
 @end
 
 @implementation TTTagView {
-    
     // 正在编辑的标签的下标
     NSInteger _editingTagIndex;
 }
@@ -74,67 +70,46 @@
 #pragma mark - 初始化一些控件
 - (void)commonInit {
     
-    /**
-     *  默认的标签类型(编辑)
-     */
-    _type = TTTagView_Type_Edit;
-    /**
-     *  默认的标签宽度
-     */
-    _tagWidht = 85;
-    /**
-     *  默认的标签高度
-     */
+    // 默认的标签宽度
+    self.tagWidht = 85;
+    // 默认的标签高度
     _tagHeight = 30;
-    /**
-     *  第一个参数是左右两个标签之间的间隔  第二个参数是上下两个标签之间的间隔
-     */
+    // 第一个参数是左右两个标签之间的间隔  第二个参数是上下两个标签之间的间隔
     _tagPaddingSize = CGSizeMake(10, 10);
-    /**
-     *  第一个参数表示标签内部text文本左右距离文本框的距离
-     */
+    // 第一个参数表示标签内部text文本左右距离文本框的距离
     _textPaddingSize = CGSizeMake(12.5, 0);
-    /**
-     *  标签字体大小
-     */
+    // 标签字体大小
     _fontTag = [UIFont systemFontOfSize:14];
-    /**
-     *  输入标签的字体大小
-     */
+    // 输入标签的字体大小
     _fontInput = [UIFont systemFontOfSize:14];
     
-    _inputBgColor = kColorRGB(0xffffff);
-    _inputPlaceHolderTextColor = kColorRGB(0xcccccc);
-    _inputTextColor = kColorRGB(0x000000);
-    _inputBorderColor = kColorRGB(0xfafafa);
-    _bgColor = kColorRGB(0xffffff);
-    _textColor = kColorRGB(0xffae00);
-    _borderColor = kColorRGB(0xffae00);
-    _selBgColor = kColorRGB(0xffae00);
-    _selTextColor = kColorRGB(0xffffff);
-    _selBorderColor = kColorRGB(0xffae00);
+    _inputBgColor = TTColorRGB(0xffffff);
+    _inputPlaceHolderTextColor = TTColorRGB(0xcccccc);
+    _inputTextColor = TTColorRGB(0x000000);
+    _inputBorderColor = TTColorRGB(0xfafafa);
+    _bgColor = TTColorRGB(0xffffff);
+    _textColor = TTColorRGB(0xffae00);
+    _borderColor = TTColorRGB(0xffae00);
+    _selBgColor = TTColorRGB(0xffae00);
+    _selTextColor = TTColorRGB(0xffffff);
+    _selBorderColor = TTColorRGB(0xffae00);
     
     _viewMaxHeight = 130;
-    self.backgroundColor = kColorRGB(0xffffff);
+    self.backgroundColor = TTColorRGB(0xffffff);
     
     self.currentMaxLength = 0;
-    /**
-     *  标签中的按钮
-     */
+    
+    // 默认的标签类型(编辑)
+    self.type = TTTagView_Type_Edit;
+    // 标签中的按钮
     _tagButtons = [NSMutableArray new];
-    /**
-     *  标签上显示的文字
-     */
+    // 标签上显示的文字
     _tagStrings = [NSMutableArray new];
-    /**
-     *  被选中的标签
-     */
+    // 被选中的标签
     _tagStringsSelected = [NSMutableArray new];
     
     {
-        /**
-         *  标签所在的view(UIScrollView)
-         */
+        // 标签所在的view(UIScrollView)
         UIScrollView *sv = [[UIScrollView alloc] initWithFrame:self.bounds];
         sv.contentSize = sv.frame.size;
         self.changeHeight = sv.contentSize.height;
@@ -151,7 +126,7 @@
     }
     {
         // 默认的标签
-        TTTextField* tf = [[TTTextField alloc] initWithFrame:CGRectMake(0, 0, _tagWidht, _tagHeight)];
+        TTTextField *tf = [[TTTextField alloc] initWithFrame:CGRectMake(0, 0, _tagWidht, _tagHeight)];
         tf.autocorrectionType = UITextAutocorrectionTypeNo;
         [tf addTarget:self action:@selector(textFieldDidFinishChange:)forControlEvents:UIControlEventEditingChanged];
         tf.delegate = self;
@@ -171,28 +146,26 @@
 - (NSMutableArray *)tagStrings {
     
       switch (_type) {
-        case TTTagView_Type_Edit: {
-            
-            return _tagStrings;
-        }
+        case TTTagView_Type_Edit:
+          {
+              return _tagStrings;
+          }
             break;
-
-        case TTTagView_Type_Selected: {
-            
-            [_tagStringsSelected removeAllObjects];
-            for (TTButton *button in _tagButtons) {
-                if (button.selected) {
-                    [_tagStringsSelected addObject:button.titleLabel.text];
-                    break;
-                }
-            }
-            return _tagStringsSelected;
-        }
+        case TTTagView_Type_Selected:
+          {
+              [_tagStringsSelected removeAllObjects];
+              for (TTButton *button in _tagButtons) {
+                  if (button.selected) {
+                      [_tagStringsSelected addObject:button.titleLabel.text];
+                      break;
+                  }
+              }
+              return _tagStringsSelected;
+          }
             break;
-              
-        default: {
-            
-        }
+        default:
+          {
+          }
             break;
     }
     return nil;
@@ -209,40 +182,40 @@
     float oldContentHeight = _svContainer.contentSize.height;
     float offsetX = _tagPaddingSize.width,  offsetY = _tagPaddingSize.height;
     for (int i = 0; i < _tagButtons.count; i ++) {
+        
         TTButton *tagButton = _tagButtons[i];
         CGRect frame = tagButton.frame;
         self.isFirst = NO;
-
-            if ((offsetX + tagButton.frame.size.width + _tagPaddingSize.width) <= _svContainer.contentSize.width) {
-                
-                frame.origin.x = offsetX;
-                frame.origin.y = offsetY;
-                offsetX += tagButton.frame.size.width + _tagPaddingSize.width;
-            }else if (i != 0) {
-                
-                offsetX = _tagPaddingSize.width;
-                offsetY += _tagHeight + _tagPaddingSize.height;
-                
-                frame.origin.x = offsetX;
-                frame.origin.y = offsetY;
-                offsetX += tagButton.frame.size.width + _tagPaddingSize.width;
-            } else {
-                
-                offsetX = _tagPaddingSize.width;
-                frame.origin.x = offsetX;
-                frame.origin.y = offsetY;
-                offsetX += tagButton.frame.size.width + _tagPaddingSize.width;
-                
-            }
-
+        if ((offsetX + tagButton.frame.size.width + _tagPaddingSize.width) <= _svContainer.contentSize.width) {
+            
+            frame.origin.x = offsetX;
+            frame.origin.y = offsetY;
+            offsetX += tagButton.frame.size.width + _tagPaddingSize.width;
+        } else if (i != 0) {
+            
+            offsetX = _tagPaddingSize.width;
+            offsetY += _tagHeight + _tagPaddingSize.height;
+            
+            frame.origin.x = offsetX;
+            frame.origin.y = offsetY;
+            offsetX += tagButton.frame.size.width + _tagPaddingSize.width;
+        } else {
+            
+            offsetX = _tagPaddingSize.width;
+            frame.origin.x = offsetX;
+            frame.origin.y = offsetY;
+            offsetX += tagButton.frame.size.width + _tagPaddingSize.width;
+        }
         tagButton.frame = frame;
     }
     
     _tfInput.hidden = (_type != TTTagView_Type_Edit);
     if (_type == TTTagView_Type_Edit) {
         
+//        if (!_tfInput) {
+//            _tfInput = [[UITextField alloc] init];
+//        }
         _tfInput.font = _fontInput;
-        
         _tfInput.backgroundColor = _inputBgColor;
         _tfInput.textColor = _inputTextColor;
         [_tfInput setValue:_inputPlaceHolderTextColor forKeyPath:@"_placeholderLabel.textColor"];
@@ -257,23 +230,22 @@
             _tfInput.frame = frame;
         }
         CGRect frame = _tfInput.frame;
-
-            if ((offsetX + _tfInput.frame.size.width + _tagPaddingSize.width) <= _svContainer.contentSize.width) {
-                frame.origin.x = offsetX;
-                frame.origin.y = offsetY;
-            }else if (!self.isFirst) {
-                
-                offsetX = _tagPaddingSize.width;
-                offsetY += _tagHeight + _tagPaddingSize.height;
-                
-                frame.origin.x = offsetX;
-                frame.origin.y = offsetY;
-            } else {
-                
-                offsetX = _tagPaddingSize.width;
-                frame.origin.x = offsetX;
-                frame.origin.y = offsetY;
-            }
+        if ((offsetX + _tfInput.frame.size.width + _tagPaddingSize.width) <= _svContainer.contentSize.width) {
+            frame.origin.x = offsetX;
+            frame.origin.y = offsetY;
+        } else if (!self.isFirst) {
+            
+            offsetX = _tagPaddingSize.width;
+            offsetY += _tagHeight + _tagPaddingSize.height;
+            
+            frame.origin.x = offsetX;
+            frame.origin.y = offsetY;
+        } else {
+            
+            offsetX = _tagPaddingSize.width;
+            frame.origin.x = offsetX;
+            frame.origin.y = offsetY;
+        }
         _tfInput.frame = frame;
         
     }
@@ -337,7 +309,6 @@
 
     self.selectedBtn = sender;
     [self.selectedBtn setSelected:YES];
-    
 }
 
 #pragma mark action 添加标签
@@ -346,7 +317,6 @@
     for (NSString *tag in tags) {
         [self addTagToLast:tag];
     }
-    
     [self layoutTagviews];
 }
 
@@ -361,7 +331,7 @@
     NSArray *result = [_tagStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %@", tag]];
     if (result.count == 0) {
         [_tagStrings addObject:tag];
-        [_svContainer scrollRectToVisible:CGRectMake(_svContainer.left, _svContainer.contentSize.height - 50, kScreenWidth, 50) animated:YES];
+        [_svContainer scrollRectToVisible:CGRectMake(_svContainer.left, _svContainer.contentSize.height - 50, TTScreenWidth, 50) animated:YES];
         if ([self.delegate respondsToSelector:@selector(finishInput:)]) {
             [self.delegate finishInput:tag];
         }
@@ -402,7 +372,7 @@
         [_tagButtons[index] removeFromSuperview];
         [_tagButtons removeObjectAtIndex:index];
         
-        [_svContainer scrollRectToVisible:CGRectMake(_svContainer.left, _svContainer.contentSize.height - 50, kScreenWidth, 50) animated:YES];
+        [_svContainer scrollRectToVisible:CGRectMake(_svContainer.left, _svContainer.contentSize.height - 50, TTScreenWidth, 50) animated:YES];
     }
     [self layoutTagviews];
 }
@@ -411,8 +381,8 @@
 - (void)handlerButtonAction:(TTButton *)tagButton {
     
     switch (_type) {
-        case TTTagView_Type_Edit: {
-            
+        case TTTagView_Type_Edit:
+        {
             _editingTagIndex = [_tagButtons indexOfObject:tagButton];
             CGRect buttonFrame = tagButton.frame;
             buttonFrame.size.height -= 5;
@@ -436,7 +406,8 @@
             tagButton.selected = YES;
         }
             break;
-        default: {
+        default:
+        {
             
         }
             break;
@@ -501,7 +472,6 @@
     if (frame.size.width + _tagPaddingSize.width * 2 >= _svContainer.width - 30) {
 
         if (string2.length < textField.text.length) {
-            
             return YES;
         } else {
             
@@ -509,14 +479,12 @@
             _tfInput.frame = frame;
             return NO;
         }
-    
     } else {
         return YES;
     }
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"willEditing" object:nil];
     _editingTagIndex = _tagStrings.count;
@@ -531,7 +499,6 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     
     [self textFieldShouldReturn:textField];
-    
 }
 
 #pragma mark UIMenuController
@@ -539,12 +506,10 @@
     
     
     if ([self.delegate respondsToSelector:@selector(deleteBtnClick:)] && _editingTagIndex < _tagStrings.count) {
-        
         [self.delegate deleteBtnClick:_tagStrings[_editingTagIndex]];
     }
     
     if (![_tfInput isEditing] && _editingTagIndex < _tagStrings.count) {
-        
         [self removeTag:_tagStrings[_editingTagIndex]];
     }
 }
@@ -571,7 +536,6 @@
     [self textFieldShouldReturn:_tfInput];
 }
 
-
 #pragma mark getter & setter
 - (void)setBackgroundColor:(UIColor *)backgroundColor {
     
@@ -584,23 +548,23 @@
     _type = type;
     switch (_type) {
             
-        case TTTagView_Type_Edit: {
-            
+        case TTTagView_Type_Edit:
+        {
             for (UIButton* button in _tagButtons) {
                 button.selected = NO;
             }
         }
             break;
             
-        case TTTagView_Type_Selected: {
-            
+        case TTTagView_Type_Selected:
+        {
             for (UIButton *button in _tagButtons) {
                 button.selected = [_tagStringsSelected containsObject:button.titleLabel.text];
             }
         }
             break;
-        default: {
-            
+        default:
+        {
         }
             break;
     }
@@ -622,16 +586,15 @@
     
     _tagStringsSelected = tagStringsSelected;
     switch (_type) {
-            
-        case TTTagView_Type_Selected: {
-            
+        case TTTagView_Type_Selected:
+        {
             for (UIButton *button in _tagButtons) {
                 button.selected = [tagStringsSelected containsObject:button.titleLabel.text];
             }
         }
             break;
-        default: {
-            
+        default:
+        {
         }
             break;
     }

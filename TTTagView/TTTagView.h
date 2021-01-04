@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ 标签的当前状态
+ */
+typedef enum {
+    // 编辑状态
+    TTTagView_Type_Edit,
+    // 选中状态
+    TTTagView_Type_Selected
+    
+} TTTagView_Type;
+
 @protocol TTTagViewDelegate <NSObject>
 
 @optional
@@ -26,16 +37,6 @@
 
 @end
 
-/**
- 标签的当前状态
- */
-typedef enum {
-    // 编辑状态
-    TTTagView_Type_Edit,
-    // 选中状态
-    TTTagView_Type_Selected
-    
-} TTTagView_Type;
 
 @interface TTTagView : UIView
 

@@ -59,7 +59,7 @@
 
 - (UITableView *)tableView {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.inputHeight, kScreenWidth , kScreenHeight - (64 + self.inputHeight)) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.inputHeight, TTScreenWidth , TTScreenHeight - (64 + self.inputHeight)) style:UITableViewStyleGrouped];
     }
     return _tableView;
 }
@@ -90,7 +90,7 @@
     
     [super viewDidLoad];
     self.inputHeight = 50;
-    self.view.backgroundColor = kCOLOR(245);
+    self.view.backgroundColor = TTColor(245);
     [self addSubviews];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -98,12 +98,9 @@
     [self setData];
     
     //设置视图是否延伸到StatusBar的后面
-    if (kCurrentFloatDevice >= 7.0)
-    {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-        //刷新状态栏样式
-        [self setNeedsStatusBarAppearanceUpdate];
-    }
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    //刷新状态栏样式
+    [self setNeedsStatusBarAppearanceUpdate];
     
     if (self.bqlabStr.length > 0) {
         [inputTagView addTags:self.selectedTags];
@@ -119,7 +116,7 @@
     
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [btn setTitle:@"确定" forState:UIControlStateNormal];
-    [btn setTitleColor:kRandomColor forState:UIControlStateNormal];
+    [btn setTitleColor:TTRandomColor forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(didFinishBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
@@ -146,28 +143,28 @@
 - (void)addSubviews {
     
     UIView *textBgView = [[UIView alloc] init];
-    textBgView.layer.borderColor = kCOLOR(220) .CGColor;
+    textBgView.layer.borderColor = TTColor(220) .CGColor;
     textBgView.layer.borderWidth = 0.5;
     
     [self.view addSubview:textBgView];
     self.textBgView = textBgView;
-    textBgView.frame = CGRectMake(0, 0, kScreenWidth, self.inputHeight);
+    textBgView.frame = CGRectMake(0, 0, TTScreenWidth, self.inputHeight);
     
     inputTagView = [[TTTagView alloc] initWithFrame:CGRectMake(0, 0,self.view.width ,self.inputHeight)];
     inputTagView.translatesAutoresizingMaskIntoConstraints=YES;
     inputTagView.delegate = self;
     
     {// 这些属性有默认值, 可以不进行设置
-        inputTagView.inputBgColor = kRandomColor;
-        inputTagView.inputPlaceHolderTextColor = kRandomColor;
-        inputTagView.inputTextColor = kRandomColor;
-        inputTagView.inputBorderColor = kRandomColor;
-        inputTagView.bgColor = kRandomColor;
-        inputTagView.textColor = kRandomColor;
-        inputTagView.borderColor = kRandomColor;
-        inputTagView.selBgColor = kRandomColor;
-        inputTagView.selTextColor = kRandomColor;
-        inputTagView.selBorderColor = kRandomColor;
+        inputTagView.inputBgColor = TTRandomColor;
+        inputTagView.inputPlaceHolderTextColor = TTRandomColor;
+        inputTagView.inputTextColor = TTRandomColor;
+        inputTagView.inputBorderColor = TTRandomColor;
+        inputTagView.bgColor = TTRandomColor;
+        inputTagView.textColor = TTRandomColor;
+        inputTagView.borderColor = TTRandomColor;
+        inputTagView.selBgColor = TTRandomColor;
+        inputTagView.selTextColor = TTRandomColor;
+        inputTagView.selBorderColor = TTRandomColor;
     }
     
     // KVO监测其高度是否发生改变(改变的话就需要修改下边的所有控件的frame)
@@ -180,7 +177,7 @@
     [inputTagView resignFirstResponder];
     
     [self.view addSubview:self.tableView];
-    self.tableView.backgroundColor = kCOLOR(245);
+    self.tableView.backgroundColor = TTColor(245);
     
 }
 
@@ -197,10 +194,10 @@
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.backgroundColor = kCOLOR(245);
+    cell.backgroundColor = TTColor(245);
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelSelectedTag)];
     [cell.contentView addGestureRecognizer:tap];
-    [cell.contentView addSubview:[self addHistoryViewTagsWithCGRect:CGRectMake(0, 0, kScreenWidth, 44) andIndex:indexPath]];
+    [cell.contentView addSubview:[self addHistoryViewTagsWithCGRect:CGRectMake(0, 0, TTScreenWidth, 44) andIndex:indexPath]];
     
     return cell;
     
@@ -232,15 +229,15 @@
 #pragma mark - 返回组标题
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
-    bgView.backgroundColor = kCOLOR(245);
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TTScreenWidth, 40)];
+    bgView.backgroundColor = TTColor(245);
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(10, 12.5, 15, 15)];
     view.backgroundColor = [self getGroupTitleColorWithIndex:section];
     view.layer.cornerRadius = 2;
     [bgView addSubview:view];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(35, 10, kScreenWidth - 35, 20)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(35, 10, TTScreenWidth - 35, 20)];
     if (self.dataArr.count > 0) {
         label.text = @"此处应该有标题";
     }
@@ -261,18 +258,18 @@
     
     switch (index) {
         case 0:
-            return kCustomColor(255, 102, 102);
+            return TTCustomColor(255, 102, 102);
             break;
             
         case 1:
-            return kCustomColor(153, 153, 255);
+            return TTCustomColor(153, 153, 255);
             break;
         case 2:
-            return kCustomColor(51, 204, 153);
+            return TTCustomColor(51, 204, 153);
             break;
             
         default:
-            return kCustomColor(255, 153, 0);
+            return TTCustomColor(255, 153, 0);
             break;
     }
     
@@ -291,12 +288,12 @@
     tagView.backgroundColor = [UIColor clearColor];
 
     {// 这些属性颜色有默认值, 可以设置也可以不设置
-        tagView.bgColor = kRandomColor;
-        tagView.textColor = kRandomColor;
-        tagView.borderColor = kRandomColor;
-        tagView.selBgColor = kRandomColor;
-        tagView.selTextColor = kRandomColor;
-        tagView.selBorderColor = kRandomColor;
+        tagView.bgColor = TTRandomColor;
+        tagView.textColor = TTRandomColor;
+        tagView.borderColor = TTRandomColor;
+        tagView.selBgColor = TTRandomColor;
+        tagView.selTextColor = TTRandomColor;
+        tagView.selBorderColor = TTRandomColor;
         
     }
     
@@ -396,11 +393,11 @@
     
     self.inputHeight = [[change valueForKey:@"new"] floatValue];
     [UIView animateWithDuration:0.25 animations:^{
-        self.textBgView.frame = CGRectMake(0, 0, kScreenWidth, self.inputHeight);
+        self.textBgView.frame = CGRectMake(0, 0, TTScreenWidth, self.inputHeight);
     }];
     
     [UIView animateWithDuration:0.25 animations:^{
-        self.tableView.frame = CGRectMake(0, self.inputHeight, kScreenWidth, kScreenHeight - self.inputHeight - 64);
+        self.tableView.frame = CGRectMake(0, self.inputHeight, TTScreenWidth, TTScreenHeight - self.inputHeight - 64);
     }];
     
 }

@@ -12,13 +12,13 @@
 // 设置占位文本的位置
 - (CGRect)textRectForBounds:(CGRect)bounds {
 
-    return CGRectInset( bounds , 12.5 , 0 );
+    return CGRectInset(bounds, 12.5, 0);
 }
 
 // 设置文本的位置
 - (CGRect)editingRectForBounds:(CGRect)bounds {
 
-    return CGRectInset( bounds , 12.5 , 0 );
+    return CGRectInset(bounds, 12.5, 0);
 }
 
 @end
